@@ -3,12 +3,19 @@ name: resolving-merge-conflicts
 description: "适用于需要解决正在进行的 git merge/rebase 冲突时。"
 ---
 
-1. **查看当前 merge/rebase 状态**。检查 git history 和冲突文件。
+1. **查看当前状态。** 确认 Git 正在 merge、rebase、cherry-pick 还是 revert。触碰任何文件前，读取 conflict list、current history、repository instructions 与已有 user changes。
 
-2. **为每个冲突找到 primary sources**。深入理解每个变更为什么产生，以及原始意图是什么。阅读 commit messages，检查 PRs，检查原始 issues/tickets。
+2. **寻找 primary sources。** 把每一侧追溯到 commit、issue、spec、generator、configuration 或 asset authoring source。按 intent 解决，不要只处理 conflict markers。
 
-3. **解决每个 hunk。** 尽可能保留双方意图。若二者不兼容，选择符合本次 merge 目标的一方，并记录 trade-off。**不要**发明新行为。始终解决冲突；不要 `--abort`。
+3. **适用时分类 Unity files。** 读取 repository Unity development document，然后按 ownership 处理 conflicts：
+   - C# 与 structured config：在最小 coherent behavior 上合并双方 intent。
+   - `.meta`：保留 surviving asset identity 对应的 GUID；不要组合 GUID，也不要意外创建 replacement identity。
+   - Scene、prefab 与其他 Unity YAML：优先使用 UnityYAMLMerge，或选择 coherent asset version 后在 Unity 中重放另一侧 intent。只有理解 object identity 与 serialized references 时才 hand-merge。
+   - Binary assets：选择一个 primary source；双方都需要时，在 owning authoring tool 中重新应用另一侧 change。
+   - Generated code：解决 generator 或 source configuration 后 regenerate，不要手写 generated result。
 
-4. 发现项目的 **automated checks** 并运行它们，通常是 typecheck、tests、format。修复 merge 引入的问题。
+4. **解决每个 conflict。** 兼容时保留双方 intent；冲突时选择符合本次 operation 目标的一方并记录 trade-off。保留 unrelated worktree changes。如果 abort 是最安全的正确结果或用户要求 abort，先报告 evidence 并请求确认。
 
-5. **完成 merge/rebase。** Stage 所有内容并 commit。若正在 rebase，继续 rebase 流程直到所有 commits 都完成。
+5. **验证 resolved surface。** 运行受影响 assemblies 与 behaviors 的 repository-specific checks。Unity 中检查 `.meta` 与 serialized diffs、编译受影响 `.csproj`，并运行 conflict 所需的最窄 scene、prefab、PlayMode、generator、resource 或 lockstep check。
+
+6. **只推进用户请求的 operation。** 仅 stage 已解决 conflict 的 files，保持 unrelated user changes 与 staging state 不变。用户请求包含完成 operation 时才继续 merge/rebase；只有 Git 为完成该 operation 所需或用户明确要求时才 commit。

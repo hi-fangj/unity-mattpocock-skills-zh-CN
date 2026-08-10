@@ -10,7 +10,7 @@ disable-model-invocation: true
 
 这个命令由项目的 domain model 提供信息，并建立在共享 design vocabulary 上：
 
-- 运行 `/codebase-design` skill，获取 architecture vocabulary（**module**、**interface**、**depth**、**seam**、**adapter**、**leverage**、**locality**）及其 principles（deletion test、"the interface is the test surface"、"one adapter = hypothetical seam, two = real"）。每条建议都准确使用这些术语，不要漂移到 "component"、"service"、"API" 或 "boundary"。
+- 运行 `/codebase-design` skill，获取 architecture vocabulary（**module**、**interface**、**depth**、**seam**、**adapter**、**leverage**、**locality**）及其 principles（deletion test、"the interface is the test surface"、"one adapter = hypothetical seam, two = real"）。用这些术语描述 architecture roles；保留 Unity `Component` types 等 literal framework identifiers。
 - `CONTEXT.md` 中的 domain language 会为好的 seams 命名；`docs/adr/` 中的 ADRs 记录这个命令不应重新争论的 decisions。
 
 ## Process
@@ -22,7 +22,9 @@ disable-model-invocation: true
 - 如果用户点名了方向——module、subsystem 或 pain point——就按该方向探索，跳过下面的推断。
 - 否则，向前回看一段足够长的 commit history（`git log --oneline`），找出反复出现的 files 和 areas，让这些 hot spots 成为首要关注点。如果变更分散、没有明显 hot spot，再扩大范围。
 
-先读取项目 domain glossary（`CONTEXT.md`）以及你将触碰区域的 ADRs。
+先读取 repository 的 `AGENTS.md` 或 `CLAUDE.md`、项目 domain glossary（`CONTEXT.md`）以及你将触碰区域的 ADRs。
+
+当 `ProjectSettings/ProjectVersion.txt` 表明这是 Unity project 时，还要读取 [UNITY.md](UNITY.md) 与 repository 的 `docs/agents/unity-development.md`。把 assembly definitions、generated-code ownership、serialized assets 与 Unity lifecycle entrypoints 当作 architecture evidence，而不是 incidental implementation detail。
 
 然后使用 Agent tool，并设置 `subagent_type=Explore` 来遍历 codebase。不要套死板 heuristics；自然探索，并记录你感到 friction 的地方：
 
@@ -33,6 +35,8 @@ disable-model-invocation: true
 - Codebase 的哪些部分未测试，或很难通过当前 interface 测试？
 
 对任何你怀疑 shallow 的东西应用 **deletion test**：删除它会让复杂度集中，还是只把复杂度移动到别处？"yes, concentrates" 才是你要的 signal。
+
+对 Unity，要在 owning Entity/System pair 或 framework-facing slice 上应用此 test，不要孤立评判 `MonoBehaviour`、event adapter、generated wrapper 或 editor hook。Thin framework adapter 在把 lifecycle/serialization concerns 留在 domain module 之外时，可能正是正确 shape。
 
 ### 2. Present candidates as an HTML report
 
@@ -46,6 +50,7 @@ Report 使用 **Tailwind via CDN** 做 layout/styling，用 **Mermaid via CDN** 
 - **Problem** - 当前 architecture 为什么造成 friction
 - **Solution** - 会改变什么，用 plain English 描述
 - **Benefits** - 用 locality 与 leverage 解释收益，以及 tests 如何改善
+- **Verification impact** - 受影响 assemblies，以及 refactor 所需的 faithful runtime、Editor、scene、prefab、UI、asset 或 deterministic behavior evidence
 - **Before / After diagram** - side-by-side，自绘，说明 shallowness 与 deepening
 - **Recommendation strength** - `Strong`、`Worth exploring`、`Speculative` 之一，渲染为 badge
 

@@ -1,11 +1,11 @@
 ---
 name: translate-skill
-description: 将 mattpocock/skills 的内容翻译、刷新或复核到简体中文本地化仓库 vinvcn/mattpocock-skills-zh-CN 时使用这个项目级 skill。适用于 skill files、README content、CLAUDE.md、CONTEXT.md、docs，以及其他需要保留行为关键 identifiers 的上游用户可见内容。
+description: 将 mattpocock/skills 的内容翻译、刷新或复核到简体中文本地化仓库 hi-fangj/unity-mattpocock-skills-zh-CN 时使用这个项目级 skill。适用于 skill files、README content、CLAUDE.md、CONTEXT.md、docs，以及其他需要保留行为关键 identifiers 的上游用户可见内容。
 ---
 
 # Translate Skill
 
-Use this skill to translate upstream `mattpocock/skills` content into Simplified Chinese for `vinvcn/mattpocock-skills-zh-CN`.
+Use this skill to translate upstream `mattpocock/skills` content into Simplified Chinese for `hi-fangj/unity-mattpocock-skills-zh-CN`.
 
 This skill is for **content localization**, not Git synchronization.
 
@@ -14,6 +14,10 @@ This skill is for **content localization**, not Git synchronization.
 Translate user-facing English prose into natural Simplified Chinese while preserving all behavior-critical content exactly.
 
 The target repo is an independent Simplified Chinese localized edition. It should receive translated content, not upstream repository metadata.
+
+## Unity adaptation invariant
+
+This fork also owns Unity-specific behavior that upstream does not contain. Preserve `skills/engineering/unity-development`, `setup-matt-pocock-skills/unity-development.md`, every local `UNITY.md`, and the conditional pointers that load them. When upstream changes the surrounding skill, merge the translated upstream intent around these branches; do not replace the whole local file.
 
 ## What to translate
 
@@ -65,7 +69,7 @@ mattpocock/skills
 with the localized repo path:
 
 ```text
-vinvcn/mattpocock-skills-zh-CN
+hi-fangj/unity-mattpocock-skills-zh-CN
 ```
 
 Only make this replacement where the command or prose is telling users how to install or use the localized repo.
@@ -122,7 +126,7 @@ When translating one file:
 4. Translate only natural-language prose.
 5. Restore protected spans exactly.
 6. Check that commands, code blocks, paths, URLs, identifiers, and frontmatter keys are unchanged.
-7. Check that localized install commands use `vinvcn/mattpocock-skills-zh-CN`.
+7. Check that localized install commands use `hi-fangj/unity-mattpocock-skills-zh-CN`.
 8. Return the translated file content or a patch, plus any review flags.
 
 ## Workflow for a repo refresh
@@ -134,11 +138,12 @@ When refreshing from upstream:
 3. Translate new and changed prose-bearing files.
 4. Copy or preserve non-translatable support files only when they are in scope.
 5. Preserve the localized repo’s README positioning and install path.
-6. 按“验证步骤”完成同步后的结构、完整性、索引和行为关键内容检查。
-7. Add a concise entry to the README sync log.
-8. 在 README 中记录本次验证结果、翻译执行者和翻译策略摘要。
-9. Flag ambiguous files, removed files, or risky transformations for maintainer review.
-10. 总结已翻译文件、复制或保留文件、移除文件、跳过文件、验证结果和复核标记。
+6. Preserve the Unity adaptation invariant and re-check every conditional pointer after merging upstream prose.
+7. 按“验证步骤”完成同步后的结构、完整性、索引和行为关键内容检查。
+8. Add a concise entry to the README sync log.
+9. 在 README 中记录本次验证结果、翻译执行者和翻译策略摘要。
+10. Flag ambiguous files, removed files, or risky transformations for maintainer review.
+11. 总结已翻译文件、复制或保留文件、移除文件、跳过文件、验证结果和复核标记。
 
 ## 验证步骤
 
@@ -152,6 +157,7 @@ When refreshing from upstream:
 6. 检查 README 同步记录指向最新 upstream short SHA，并包含本地同步 commit；不能留下“待定”占位。
 7. 扫描 stale install path 和旧路径，例如仍指向上游 repo 的安装命令、旧的中文仓库短路径、已移除的 triage skill 名、已移除的 domain-model 相对路径等。
 8. 运行 `node scripts/audit-english.mjs` 作为人工复核队列。该脚本在本仓库会包含大量合理的英文术语、命令、示例和 identifiers，因此只作为 review flag，不作为硬性失败门槛。
+9. 检查 `unity-development` 仍在公开 README、engineering bucket index 与 plugin manifest 中；每个 Unity-aware skill 的 `UNITY.md` pointer 仍可解析。
 
 验证结果应同步写入顶层 `README.md`，使用简短 checklist，不要把完整命令输出粘进去。
 
@@ -201,7 +207,7 @@ README sync log:
 - ...
 
 Invariant checks:
-- install commands point to vinvcn/mattpocock-skills-zh-CN
+- install commands point to hi-fangj/unity-mattpocock-skills-zh-CN
 - code blocks preserved
 - frontmatter keys preserved
 - paths and identifiers preserved

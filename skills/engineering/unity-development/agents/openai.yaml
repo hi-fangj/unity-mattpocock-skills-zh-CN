@@ -1,0 +1,6 @@
+interface:
+  display_name: "Unity 开发"
+  short_description: "为 Unity 项目选择忠实的实现、测试与运行时验证流程"
+  default_prompt: "使用 $unity-development，以适合此 Unity 变更的 feedback loop 完成实现和验证。"
+policy:
+  allow_implicit_invocation: true

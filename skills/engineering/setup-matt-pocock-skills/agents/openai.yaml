@@ -1,5 +1,6 @@
 interface:
   display_name: "配置 Matt Pocock Skills"
-  short_description: "为 skills 配置仓库"
+  short_description: "配置 issue tracker、domain docs 与 Unity 工作流"
+  default_prompt: "使用 $setup-matt-pocock-skills 为这个仓库配置 engineering skills。"
 policy:
   allow_implicit_invocation: false

@@ -1,14 +1,14 @@
 Quickstart:
 
 ```bash
-npx skills add vinvcn/mattpocock-skills-zh-CN --skill=to-tickets
+npx skills add hi-fangj/unity-mattpocock-skills-zh-CN --skill=to-tickets
 ```
 
 ```bash
 npx skills update to-tickets
 ```
 
-[Source](https://github.com/vinvcn/mattpocock-skills-zh-CN/tree/main/skills/engineering/to-tickets)
+[Source](https://github.com/hi-fangj/unity-mattpocock-skills-zh-CN/tree/main/skills/engineering/to-tickets)
 
 ## What it does
 

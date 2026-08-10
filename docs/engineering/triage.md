@@ -1,14 +1,14 @@
 Quickstart:
 
 ```bash
-npx skills add vinvcn/mattpocock-skills-zh-CN --skill=triage
+npx skills add hi-fangj/unity-mattpocock-skills-zh-CN --skill=triage
 ```
 
 ```bash
 npx skills update triage
 ```
 
-[Source](https://github.com/vinvcn/mattpocock-skills-zh-CN/tree/main/skills/engineering/triage)
+[Source](https://github.com/hi-fangj/unity-mattpocock-skills-zh-CN/tree/main/skills/engineering/triage)
 
 ## What it does
 

@@ -2,6 +2,8 @@
 
 在已知 dependencies 的情况下，安全地深化一组 shallow modules。本文件假设你已经使用 [SKILL.md](SKILL.md) 中的词汇：**module**、**interface**、**seam**、**adapter**。
 
+对 Unity repositories，先读取 [UNITY.md](UNITY.md)。其中 assembly、lifecycle、serialization 与 boundary-test rules 会限定下面的通用 dependency categories。
+
 ## Dependency categories
 
 评估 deepening candidate 时，先分类它的 dependencies。分类决定 deepened module 如何跨 seam 测试。

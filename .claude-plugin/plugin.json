@@ -1,13 +1,13 @@
 {
   "name": "mattpocock-skills",
-  "version": "1.2.0",
-  "description": "Matt Pocock 面向真实工程工作的 agent skills：持续追问、spec/ticket flows、TDD、代码审查、领域建模等。即装即用，不是 vibe coding。",
+  "version": "1.3.0",
+  "description": "Matt Pocock 面向真实工程工作的中文 agent skills，并增加 Unity implementation、verification、review 与 diagnosis 适配。",
   "author": {
     "name": "Matt Pocock",
     "url": "https://www.aihero.dev"
   },
   "homepage": "https://www.aihero.dev/s/skills-newsletter",
-  "repository": "https://github.com/vinvcn/mattpocock-skills-zh-CN",
+  "repository": "https://github.com/hi-fangj/unity-mattpocock-skills-zh-CN",
   "license": "MIT",
   "keywords": [
     "engineering",
@@ -16,6 +16,7 @@
     "code-review",
     "grilling",
     "domain-modeling",
+    "unity",
     "productivity"
   ],
   "skills": [
@@ -35,6 +36,7 @@
     "./skills/engineering/to-spec",
     "./skills/engineering/to-tickets",
     "./skills/engineering/triage",
+    "./skills/engineering/unity-development",
     "./skills/engineering/wayfinder",
     "./skills/productivity/grill-me",
     "./skills/productivity/grilling",

@@ -10,6 +10,14 @@ disable-model-invocation: true
 
 **Flow** 是穿过 skills 的一条路径。大多数路径沿着一条 **main flow** 前进，两个 **on-ramps** 会并入它。其他内容要么是 standalone，要么是在下层运行的 vocabulary layer。
 
+## Unity projects
+
+当 `ProjectSettings/ProjectVersion.txt` 表明这是 Unity repository 时，把 `$unity-development` 与 repository 的 Unity development document 作为本 router 下层的 execution reference。此分支中：
+
+- 使用 Unity feedback loop，不要默认 `/implement` 与 `/tdd` 的通用命令行测试假设；
+- 使用 `/prototype`、`/diagnosing-bugs`、`/code-review` 与 `/resolving-merge-conflicts` 的 Unity branches；
+- 只有变更或用户明确要求时，才运行 broad tests、player/resource builds、review workflows 与 commits。
+
 ## The main flow: idea -> ship
 
 这是大多数工作的路线：你有一个想法，并希望把它构建出来。
@@ -75,4 +83,4 @@ disable-model-invocation: true
 
 ## Precondition
 
-**`/setup-matt-pocock-skills`** - 第一次运行 engineering flow 前先执行，用来配置其他 skills 所依赖的 issue tracker、triage labels 和 docs layout。自定义 issue trackers 也可以。
+**`/setup-matt-pocock-skills`** - 第一次运行 engineering flow 前先执行，用来配置其他 skills 所依赖的 issue tracker、triage labels、domain docs，以及适用时的 Unity workflow pointer。自定义 issue trackers 也可以。

@@ -1,14 +1,14 @@
 Quickstart:
 
 ```bash
-npx skills add vinvcn/mattpocock-skills-zh-CN --skill=to-spec
+npx skills add hi-fangj/unity-mattpocock-skills-zh-CN --skill=to-spec
 ```
 
 ```bash
 npx skills update to-spec
 ```
 
-[Source](https://github.com/vinvcn/mattpocock-skills-zh-CN/tree/main/skills/engineering/to-spec)
+[Source](https://github.com/hi-fangj/unity-mattpocock-skills-zh-CN/tree/main/skills/engineering/to-spec)
 
 ## What it does
 

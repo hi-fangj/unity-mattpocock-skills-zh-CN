@@ -9,9 +9,9 @@ description: 用于设计深模块的共享词汇。适用于用户想设计或�
 
 ## Glossary
 
-准确使用这些术语，不要替换成 "component"、"service"、"API" 或 "boundary"。一致语言就是重点。
+用这些术语描述 architecture roles，不要替换成泛化的 "component"、"service"、"API" 或 "boundary"。保留 Unity `Component`、ECS component types、service class names 和 public APIs 等 literal framework/code identifiers。
 
-**Module** - 任何拥有 interface 和 implementation 的东西。它故意不限定尺度：function、class、package，或跨层 slice 都可以。_Avoid_: unit, component, service.
+**Module** - 任何拥有 interface 和 implementation 的东西。它故意不限定尺度：function、class、package，或跨层 slice 都可以。_Avoid as architectural synonyms_: unit, component, service.
 
 **Interface** - caller 为了正确使用 module 必须知道的一切：type signature，以及 invariants、ordering constraints、error modes、required configuration 和 performance characteristics。_Avoid_: API, signature（太窄，只指 type-level surface）。
 
@@ -67,6 +67,8 @@ description: 用于设计深模块的共享词汇。适用于用户想设计或�
 
 ## Designing for testability
 
+当 `ProjectSettings/ProjectVersion.txt` 表明这是 Unity project 时，先读取 [UNITY.md](UNITY.md)，再应用下面的 dependency 与 side-effect heuristics。Unity serialization 与 lifecycle callbacks 属于真实 interface，应在该 boundary 设计。
+
 好的 interfaces 让测试自然发生：
 
 1. **Accept dependencies, don't create them.**
@@ -113,3 +115,4 @@ description: 用于设计深模块的共享词汇。适用于用户想设计或�
 
 - **Deepening a cluster given its dependencies** - 见 [DEEPENING.md](DEEPENING.md)：dependency categories、seam discipline 和 replace-don't-layer testing。
 - **Exploring alternative interfaces** - 见 [DESIGN-IT-TWICE.md](DESIGN-IT-TWICE.md)：启动并行 sub-agents，用几种截然不同的方式设计 interface，再按 depth、locality 和 seam placement 比较。
+- **Unity modules** - 见 [UNITY.md](UNITY.md)：assembly seams、Entity/System 与 `MonoBehaviour` shapes、serialization、lifecycle 和 faithful verification。

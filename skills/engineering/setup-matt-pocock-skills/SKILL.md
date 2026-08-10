@@ -1,6 +1,6 @@
 ---
 name: setup-matt-pocock-skills
-description: 为此仓库配置 engineering skills——设置其 issue tracker、triage labels 词汇与 domain docs 布局。在首次使用其他 engineering skills 前运行一次。
+description: 为此仓库配置 engineering skills——设置 issue tracker、triage labels、domain docs，以及 Unity 项目的 implementation/verification workflow。在首次使用其他 engineering skills 前运行一次。
 disable-model-invocation: true
 ---
 
@@ -11,6 +11,7 @@ disable-model-invocation: true
 - **Issue tracker** - issues 存放在哪里（默认 GitHub；也原生支持 local markdown）
 - **Triage labels** - 五个 canonical triage roles 使用的字符串
 - **Domain docs** - `CONTEXT.md` 与 ADRs 的位置，以及读取它们的 consumer rules
+- **Unity development** - Unity repository 的 assembly/layer boundaries、generated-code ownership 与 verification paths
 
 这是 prompt-driven skill，不是确定性脚本。先探索，展示发现，与用户确认，然后写入。
 
@@ -26,6 +27,8 @@ disable-model-invocation: true
 - `docs/adr/` 以及任何 `src/*/docs/adr/` directories
 - `docs/agents/` - 这个 skill 之前是否已经输出过内容？
 - `.scratch/` - 表明已经在使用 local-markdown issue tracker 约定
+- `ProjectSettings/ProjectVersion.txt` - 判断这是 Unity 项目的 authoritative signal
+- 对 Unity 项目：已有 `docs/agents/unity-development.md`、assembly definitions、generated `.csproj` compiler entrypoints、generated-code directories，以及已记录的 Editor/build commands
 - 是否已安装 `triage` skill（本 skill 旁边有 `triage` folder，或 available skills 中存在 `triage`）？这决定 Section B 是否运行。
 - Monorepo signals：`pnpm-workspace.yaml`、`package.json` 的 `workspaces` field，或已有内容且各自带 `src/` 的 `packages/*`。只有真正的大型 multi-package repo 才算；没有这些 signal 就是 single-context，几乎所有 repo 都如此。
 
@@ -60,12 +63,19 @@ disable-model-invocation: true
 
 只有 exploration 找到 monorepo signals 时，才提供 **multi-context**（root 下 `CONTEXT-MAP.md` 指向每个 context 的 `CONTEXT.md` files），并确认用户想要哪种 layout。
 
+**Section D - Unity development.** 仅当 `ProjectSettings/ProjectVersion.txt` 存在时运行。不要询问是否添加；repository signal 已经决定这个分支。
+
+提议使用 `$unity-development` 作为 implementation、bug-fixing、refactoring 和 testing workflow。总结仓库真实的 assembly/layer boundaries、generated-code ownership、最小可靠 compiler checks、Unity-facing validation entrypoints 和 high-risk paths。已有 repository instructions 优先于推断 conventions。
+
+以 [unity-development.md](./unity-development.md) 为 seed 生成 `docs/agents/unity-development.md`，用已发现的项目事实替换通用 guidance。如果文件已存在，就在原处适配，并保留 project-specific commands 与 user-authored constraints。
+
 ### 3. Confirm and edit
 
 向用户展示草稿：
 
 - 要添加到 `CLAUDE.md` / `AGENTS.md` 的 `## Agent skills` block（选择规则见 step 4）
 - `docs/agents/issue-tracker.md`、`docs/agents/domain.md`，以及仅在安装了 `triage` 时才有的 `docs/agents/triage-labels.md` 内容
+- 对 Unity 项目：`### Unity development` pointer 与 `docs/agents/unity-development.md`
 
 写入前允许用户修改。
 
@@ -86,6 +96,10 @@ Block：
 ```markdown
 ## Agent skills
 
+### Unity development
+
+Use `$unity-development` for Unity implementation, fixes, refactors, and testing decisions. See `docs/agents/unity-development.md` for this project's assemblies and verification paths.
+
 ### Issue tracker
 
 [one-line summary of where issues are tracked]. See `docs/agents/issue-tracker.md`.
@@ -99,6 +113,8 @@ Block：
 [one-line summary of layout - "single-context" or "multi-context"]. See `docs/agents/domain.md`.
 ```
 
+仅对 Unity 项目包含 `### Unity development` sub-block 并写入 `docs/agents/unity-development.md`。把它放在 tracker block 前，让 implementation agents 优先看到 project workflow。
+
 只有安装了 `triage` 且 Section B 实际运行时，才包含 `### Triage labels` sub-block 并写入 `docs/agents/triage-labels.md`；否则两者都省略。
 
 然后使用本 skill folder 中的 seed templates 作为起点写 docs files：
@@ -108,9 +124,10 @@ Block：
 - [issue-tracker-local.md](./issue-tracker-local.md) - local-markdown issue tracker
 - [triage-labels.md](./triage-labels.md) - label mapping（仅当安装了 `triage`）
 - [domain.md](./domain.md) - domain doc consumer rules + layout
+- [unity-development.md](./unity-development.md) - Unity assembly、ownership 与 verification seed；根据 repository facts 定制，不要原样复制
 
 对于 "other" issue trackers，根据用户描述从头写 `docs/agents/issue-tracker.md`。
 
 ### 5. Done
 
-告诉用户 setup 已完成，以及哪些 engineering skills 现在会读取这些文件。说明他们之后可以直接编辑 `docs/agents/*.md`；只有当他们想切换 issue trackers 或从头开始时，才需要重新运行此 skill。
+告诉用户 setup 已完成，以及哪些 engineering skills 现在会读取这些文件。对 Unity 项目，点名 `$unity-development`，并报告记录了哪些 compiler 与 Unity-facing checks。说明他们之后可以直接编辑 `docs/agents/*.md`；只有当他们想切换 issue trackers 或从头开始时，才需要重新运行此 skill。

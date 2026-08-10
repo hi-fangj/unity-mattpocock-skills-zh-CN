@@ -33,7 +33,9 @@ Issue tracker 应该已经提供给你；如果缺少 `docs/agents/issue-tracker
 
 ### 3. Identify the standards sources
 
-Repo 中任何记录代码应该如何写的内容，例如 `CODING_STANDARDS.md` 或 `CONTRIBUTING.md`。
+先读取 `AGENTS.md` 或 `CLAUDE.md`，再读取 repo 中其他记录代码应该如何写的内容，例如 `CODING_STANDARDS.md`、`CONTRIBUTING.md`、相关 ADRs 或 repository workflow documents。
+
+当 `ProjectSettings/ProjectVersion.txt` 表明这是 Unity repository 时，读取 [UNITY.md](UNITY.md) 与任何 `docs/agents/unity-development.md`，并把适用规则加入 Standards sub-agent prompt。
 
 在 repo 自己记录的 standards 之外，Standards 轴线始终带有下面的 **smell baseline**：一组固定的 Fowler code smells（_Refactoring_ 第 3 章），即使 repo 没有任何约定也适用。有两条规则：
 

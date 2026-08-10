@@ -22,4 +22,4 @@ Skills 按 bucket folder 组织在 `skills/` 下：
 
 ## 翻译刷新
 
-从 `mattpocock/skills` 刷新上游内容时，改文件前先使用 `.skills/translate-skill/SKILL.md`。本仓库采用 skill-guided content localization，不做 Git fork-sync：保留简体中文本地化身份，安装命令保持指向 `vinvcn/mattpocock-skills-zh-CN`，不要导入上游 repository-management state。
+从 `mattpocock/skills` 刷新上游内容时，改文件前先使用 `.skills/translate-skill/SKILL.md`。本仓库采用 skill-guided content localization，不做 Git fork-sync：保留简体中文 Unity 适配身份，安装命令保持指向 `hi-fangj/unity-mattpocock-skills-zh-CN`，不要导入上游 repository-management state，也不要覆盖本地 `unity-development` 与各 skill 的 `UNITY.md` branches。

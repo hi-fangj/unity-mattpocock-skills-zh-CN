@@ -1,30 +1,31 @@
-# Matt Pocock Agent Skills 中文版
+# Matt Pocock Agent Skills 中文 Unity 适配版
 
 ## 为什么需要这个中文版？
 
 - 更好适配中文大语言模型
 - 方便中文母语开发者
 - 方便接入中文开发流程
+- 为 Unity 的 assembly、Editor、scene/prefab、asset 与 PlayMode 验证提供专门工作流
 
 ## 关于这个中文版
 
-这是 [`mattpocock/skills`](https://github.com/mattpocock/skills) 的简体中文本地化版本。文档和技能说明已翻译；目录名、技能名、命令、代码块、路径和工具标识保持不变，以免破坏安装和运行行为。
+这是 [`mattpocock/skills`](https://github.com/mattpocock/skills) 的简体中文 Unity 适配版本，延续 [`vinvcn/mattpocock-skills-zh-CN`](https://github.com/vinvcn/mattpocock-skills-zh-CN) 的中文本地化工作。除翻译外，本 fork 增加了 Unity implementation/verification workflow，并让 review、diagnosis、architecture、prototype、merge conflict 与 setup 流程识别 Unity 项目边界。目录名、技能名、命令、代码块、路径和工具标识保持不变，以免破坏安装和运行行为。
 
 中文版本不只是为了阅读方便。对中文母语用户来说，中文说明能减少概念转换成本；对以中文为主要交互语言或中文语料优化的模型来说，中文 prompt 和 skill instructions 也更容易贴合中文上下文，减少中英混杂带来的歧义。
 
 本仓库按内容刷新方式同步上游，不同步上游 Git 历史或仓库管理状态。维护规则见 [`.skills/translate-skill/SKILL.md`](./.skills/translate-skill/SKILL.md)。
 
-本仓库的最近一次同步翻译由 OpenAI Codex（GPT-5 coding agent）执行，并由仓库维护者通过提交记录纳入 `main`。翻译策略是 **skill-guided content localization**：把上游 `mattpocock/skills` 当作英文内容来源，只翻译自然语言说明，保留目录名、skill name、frontmatter key、命令、代码块、路径、URL、package/tool/API identifiers 和行为关键 labels。用户可见的安装路径统一保持为 `vinvcn/mattpocock-skills-zh-CN`。
+本仓库的最近一次同步翻译由 OpenAI Codex（GPT-5 coding agent）执行，并由仓库维护者通过提交记录纳入 `main`。翻译策略是 **skill-guided content localization**：把上游 `mattpocock/skills` 当作英文内容来源，只翻译自然语言说明，保留目录名、skill name、frontmatter key、命令、代码块、路径、URL、package/tool/API identifiers 和行为关键 labels。用户可见的安装路径统一保持为 `hi-fangj/unity-mattpocock-skills-zh-CN`。
 
 ## 30 秒安装
 
 ```bash
-npx skills@latest add vinvcn/mattpocock-skills-zh-CN
+npx skills@latest add hi-fangj/unity-mattpocock-skills-zh-CN
 ```
 
-选择你想安装的 skills，以及要安装到哪些 coding agents。首次安装时请确保选择 [`/setup-matt-pocock-skills`](./skills/engineering/setup-matt-pocock-skills/SKILL.md)，然后在 agent 中运行它来完成 issue tracker、labels 和 docs 目录配置。
+选择你想安装的 skills，以及要安装到哪些 coding agents。Unity 项目首次安装时请确保选择 [`/setup-matt-pocock-skills`](./skills/engineering/setup-matt-pocock-skills/SKILL.md) 与 [`/unity-development`](./skills/engineering/unity-development/SKILL.md)，然后运行 setup 完成 issue tracker、labels、docs 与 Unity verification 配置。
 
-[![skills.sh](https://skills.sh/b/vinvcn/mattpocock-skills-zh-CN)](https://skills.sh/vinvcn/mattpocock-skills-zh-CN)
+[![skills.sh](https://skills.sh/b/hi-fangj/unity-mattpocock-skills-zh-CN)](https://skills.sh/hi-fangj/unity-mattpocock-skills-zh-CN)
 
 <p>
   <a href="https://www.aihero.dev/s/skills-newsletter">
@@ -53,15 +54,16 @@ npx skills@latest add vinvcn/mattpocock-skills-zh-CN
 1. 运行 skills.sh installer：
 
 ```bash
-npx skills@latest add vinvcn/mattpocock-skills-zh-CN
+npx skills@latest add hi-fangj/unity-mattpocock-skills-zh-CN
 ```
 
-2. 选择你想安装的 skills，以及要安装到哪些 coding agents。**确保选择 `/setup-matt-pocock-skills`**。
+2. 选择你想安装的 skills，以及要安装到哪些 coding agents。Unity 项目**确保选择 `/setup-matt-pocock-skills` 与 `/unity-development`**。
 
 3. 在你的 agent 中运行 `/setup-matt-pocock-skills`。它会：
    - 询问你要使用哪个 issue tracker（GitHub、Linear 或 local files）
    - 询问你 triage issues 时使用哪些 labels（`/triage` 会使用这些 labels）
    - 询问要把创建的 docs 保存到哪里
+   - 检测 Unity 项目并记录 assembly、generated-code ownership、compiler checks 与 Unity-facing verification paths
 
 4. 完成后即可开始使用。
 
@@ -72,14 +74,14 @@ npx skills@latest add vinvcn/mattpocock-skills-zh-CN
 在 Claude Code 中运行：
 
 ```
-/plugin marketplace add vinvcn/mattpocock-skills-zh-CN
+/plugin marketplace add hi-fangj/unity-mattpocock-skills-zh-CN
 /plugin install mattpocock-skills@mattpocock
 ```
 
 或在 shell 中运行：
 
 ```bash
-claude plugin marketplace add vinvcn/mattpocock-skills-zh-CN
+claude plugin marketplace add hi-fangj/unity-mattpocock-skills-zh-CN
 claude plugin install mattpocock-skills@mattpocock
 ```
 
@@ -87,10 +89,10 @@ claude plugin install mattpocock-skills@mattpocock
 
 两种安装方式代表两种使用取向：
 
-- **[skills.sh](https://skills.sh/vinvcn/mattpocock-skills-zh-CN)** 会把 skills 复制进项目，方便你修改并定制。
+- **[skills.sh](https://skills.sh/hi-fangj/unity-mattpocock-skills-zh-CN)** 会把 skills 复制进项目，方便你修改并定制。
 - **Plugin** 把它们作为受管理的只读 bundle 安装，适合只想直接使用并持续跟进更新的用户。
 
-> 使用 Codex 或其他 agent？[skills.sh installer](https://skills.sh/vinvcn/mattpocock-skills-zh-CN) 已经可以把这些 skills 安装到 Codex 和其他兼容 Agent Skills 的 harnesses；目前尚未提供原生 Codex plugin。
+> 使用 Codex 或其他 agent？[skills.sh installer](https://skills.sh/hi-fangj/unity-mattpocock-skills-zh-CN) 已经可以把这些 skills 安装到 Codex 和其他兼容 Agent Skills 的 harnesses；目前尚未提供原生 Codex plugin。
 
 ### 为什么这些 Skills 存在
 
@@ -206,7 +208,7 @@ AI 时代也是一样。你和 agent 之间存在沟通缺口。修复方式是�
 - **[grill-with-docs](./skills/engineering/grill-with-docs/SKILL.md)** - 追问式访谈，同时构建项目的 domain model、打磨术语，并内联更新 `CONTEXT.md` 与 ADRs。
 - **[triage](./skills/engineering/triage/SKILL.md)** - 通过 triage roles state machine 推进 issues。
 - **[improve-codebase-architecture](./skills/engineering/improve-codebase-architecture/SKILL.md)** - 扫描 codebase 中的 deepening opportunities，生成可视化 HTML report，然后围绕你选中的候选项继续 grilling。
-- **[setup-matt-pocock-skills](./skills/engineering/setup-matt-pocock-skills/SKILL.md)** - 配置 issue tracker、triage labels 和 domain docs 布局。每个 repo 运行一次。
+- **[setup-matt-pocock-skills](./skills/engineering/setup-matt-pocock-skills/SKILL.md)** - 配置 issue tracker、triage labels、domain docs，以及适用时的 Unity development workflow。每个 repo 运行一次。
 - **[to-spec](./skills/engineering/to-spec/SKILL.md)** - 把当前对话整理成 spec 并发布到 issue tracker。不做访谈，只综合已经讨论过的内容。
 - **[to-tickets](./skills/engineering/to-tickets/SKILL.md)** - 把 plan、spec 或 conversation 拆成 tracer-bullet tickets，每个 ticket 声明 blocking edges——在 local file 中写成文本，或在真实 tracker 上写成 native blocking links。
 - **[wayfinder](./skills/engineering/wayfinder/SKILL.md)** - 把超出单个 agent session 的大块工作规划成 issue tracker 上的 decision tickets 共享 map，逐一解决直到通往 destination 的路清晰。
@@ -214,6 +216,7 @@ AI 时代也是一样。你和 agent 之间存在沟通缺口。修复方式是�
 
 **Model-invoked**
 
+- **[unity-development](./skills/engineering/unity-development/SKILL.md)** - 为 Unity C#、assemblies、MonoBehaviours、scenes、prefabs、Editor tooling、assets、UI 与 deterministic gameplay 选择忠实的实现和验证循环。
 - **[prototype](./skills/engineering/prototype/SKILL.md)** - 构建 throwaway prototype，回答 state/business-logic 问题或探索 UI 变体。
 - **[diagnosing-bugs](./skills/engineering/diagnosing-bugs/SKILL.md)** - 面向棘手 bug 和性能回退的纪律化诊断循环：reproduce -> minimise -> hypothesise -> instrument -> fix -> regression-test。
 - **[research](./skills/engineering/research/SKILL.md)** - 对照 high-trust primary sources 调研问题，并把带引用的 findings 保存为 Markdown 文件。

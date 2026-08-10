@@ -9,6 +9,8 @@ description: 面向棘手缺陷和性能回退的诊断循环。适用于用户�
 
 探索 codebase 时，先读取 `CONTEXT.md`（如果存在），建立相关 modules 的清晰 mental model，并检查你将触碰区域的 ADRs。
 
+当 `ProjectSettings/ProjectVersion.txt` 表明这是 Unity project 时，读取 [UNITY.md](UNITY.md)。其中 feedback-loop 与 regression-evidence rules 覆盖本文档的 command-line assumptions。
+
 ## Phase 1 - Build a feedback loop
 
 **这就是这个 skill 的核心。** 其他所有内容都是机械步骤。如果你拥有一个针对该 bug 的 **tight** pass/fail signal，即它会在 _这个_ bug 上变红，你就能找到原因；bisection、hypothesis-testing 和 instrumentation 都只是消费这个 signal。没有它，盯着代码看多久都救不了你。
@@ -38,7 +40,7 @@ description: 面向棘手缺陷和性能回退的诊断循环。适用于用户�
 - 我能让 signal 更尖锐吗？（断言具体 symptom，而不是 "didn't crash"。）
 - 我能让它更 deterministic 吗？（Pin time、seed RNG、isolate filesystem、freeze network。）
 
-一个 30 秒且 flaky 的 loop 几乎不比没有 loop 好；一个 2 秒 deterministic loop 才是 tight 的调试超能力。
+Tight loop 是环境允许的最快 faithful loop。Pure code 最好是秒级；Editor、device、scene、asset import 或 player startup loop 即使更久，只要 setup 有界且 verdict 清晰，仍可以是 tight。
 
 ### Non-deterministic bugs
 
@@ -46,18 +48,18 @@ description: 面向棘手缺陷和性能回退的诊断循环。适用于用户�
 
 ### When you genuinely cannot build a loop
 
-停下来并明确说明。列出你尝试过什么。向用户请求：(a) 能复现的环境访问权限，(b) 捕获的 artifact（HAR file、log dump、core dump、带 timestamps 的 screen recording），或 (c) 添加临时 production instrumentation 的许可。**不要** 在没有 loop 时继续 hypothesise。
+停下来并明确说明。列出你尝试过什么。向用户请求：(a) 能复现的环境访问权限，(b) 经过 redaction 的 trace、log dump、profiler capture、replay 或带 timestamps 的 recording，或 (c) 添加临时 instrumentation 的许可。只有获得能确认或推翻 symptom 的 bounded scenario/artifact 后才继续。
 
 ### Completion criterion - a tight loop that goes red
 
-Phase 1 完成条件：loop **tight** 且 **red-capable**。你能指出 **一个 command**（script path、test invocation、curl），并且你已经至少运行过一次（贴出 invocation 和 output），且它满足：
+Phase 1 完成条件：loop **tight** 且 **red-capable**。你能指出一个 command、replay、runtime scenario 或 exact human-assisted sequence，并且已经至少执行过一次，且它满足：
 
 - [ ] **Red-capable** - 它驱动真实 bug code path，并断言 **用户的 exact symptom**，因此能在该 bug 上变红、修复后变绿。不是 "runs without erroring"，而是必须能 _catch this specific bug_。
 - [ ] **Deterministic** - 每次运行 verdict 相同（flaky bugs：按上文固定到高复现率）。
-- [ ] **Fast** - 秒级，而不是分钟级。
-- [ ] **Agent-runnable** - 你可以无人值守运行；human in the loop 只能通过 `scripts/hitl-loop.template.sh`。
+- [ ] **Bounded** - setup、inputs、observation point 与 verdict 都明确。
+- [ ] **Repeatable** - agent 或 human 能重新运行相同 sequence，并捕获可比较 evidence。
 
-如果你发现自己在 command 存在前就读代码构建理论，**停下；直接跳到 hypothesis 正是这个 skill 要防止的失败。** 没有 red-capable command，就没有 Phase 2。
+如果你发现自己在 loop 存在前就读代码构建理论，停下。没有 red-capable loop，就没有 Phase 2。
 
 ## Phase 2 - Reproduce + minimise
 
@@ -107,13 +109,13 @@ Tool preference：
 
 ## Phase 5 - Fix + regression test
 
-在 fix 前写 regression test，但前提是存在 **correct seam**。
+在 fix 前先捕获 regression evidence。存在 correct seam 时优先写 failing test；否则保留 minimised replay、trace、runtime scenario、profiler capture 或 structured manual sequence。
 
 Correct seam 是 test 能以 call site 中真实发生的方式触发 **real bug pattern** 的地方。如果唯一可用 seam 太 shallow（bug 需要多个 callers，但 test 只有 single-caller；unit test 无法复制触发 bug 的 chain），那里的 regression test 会给出 false confidence。
 
 **如果不存在 correct seam，这本身就是发现。** 记录下来。Codebase architecture 阻止你锁住 bug。把它标记给下一阶段。
 
-如果存在 correct seam：
+如果存在 correct test seam：
 
 1. 把 minimised repro 变成该 seam 上的 failing test。
 2. 看它 fail。
@@ -121,12 +123,14 @@ Correct seam 是 test 能以 call site 中真实发生的方式触发 **real bug
 4. 看它 pass。
 5. 重新针对原始（未 minimised）场景运行 Phase 1 feedback loop。
 
+如果不存在 correct test seam，只能在 minimised non-test evidence 已经 red 后应用 fix，然后重跑 minimised 与 original scenarios。记录 test 为什么会误导或超出 scope。
+
 ## Phase 6 - Cleanup + post-mortem
 
 声明完成前必须做：
 
 - [ ] Original repro 不再复现（重跑 Phase 1 loop）
-- [ ] Regression test 通过（或记录缺少 seam）
+- [ ] Regression test 或等价 captured evidence 已 green（或记录不存在 faithful seam）
 - [ ] 所有 `[DEBUG-...]` instrumentation 已移除（grep prefix）
 - [ ] Throwaway prototypes 已删除（或移动到明确标记的 debug location）
 - [ ] 正确 hypothesis 已写进 commit / PR message，让下一个 debugger 能学习

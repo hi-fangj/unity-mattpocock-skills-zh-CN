@@ -1,14 +1,14 @@
 Quickstart:
 
 ```bash
-npx skills add vinvcn/mattpocock-skills-zh-CN --skill=resolving-merge-conflicts
+npx skills add hi-fangj/unity-mattpocock-skills-zh-CN --skill=resolving-merge-conflicts
 ```
 
 ```bash
 npx skills update resolving-merge-conflicts
 ```
 
-[Source](https://github.com/vinvcn/mattpocock-skills-zh-CN/tree/main/skills/engineering/resolving-merge-conflicts)
+[Source](https://github.com/hi-fangj/unity-mattpocock-skills-zh-CN/tree/main/skills/engineering/resolving-merge-conflicts)
 
 ## What it does
 

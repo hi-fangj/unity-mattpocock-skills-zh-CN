@@ -2,7 +2,9 @@ import fs from "node:fs";
 import path from "node:path";
 import { execSync } from "node:child_process";
 
-const files = execSync("git ls-files", { encoding: "utf8" })
+const files = execSync("git ls-files --cached --others --exclude-standard", {
+  encoding: "utf8",
+})
   .trim()
   .split("\n")
   .filter((file) => file && fs.existsSync(file));
@@ -54,10 +56,10 @@ if (files.includes("README.md")) {
   if (/vinvcn\/skills-zh-CN/.test(readme)) {
     fail("README.md", "README still points at vinvcn/skills-zh-CN");
   }
-  if (!/vinvcn\/mattpocock-skills-zh-CN/.test(readme)) {
+  if (!/hi-fangj\/unity-mattpocock-skills-zh-CN/.test(readme)) {
     fail(
       "README.md",
-      "README does not reference vinvcn/mattpocock-skills-zh-CN",
+      "README does not reference hi-fangj/unity-mattpocock-skills-zh-CN",
     );
   }
 }
