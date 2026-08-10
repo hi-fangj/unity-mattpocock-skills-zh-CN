@@ -93,7 +93,26 @@ Agent 会从 Standards（是否符合 AGENTS.md 编码规范）和 Spec（是否
 
 ---
 
-### 3. 调试 Bug：定位战斗回放不同步
+### 3. 输出正式 Spec：把讨论沉淀成需求文档
+
+如果你已经和 agent（或同事）把需求讨论清楚了，但产出的是对话而不是可交付的 spec，不想再走一轮访谈时：
+
+```
+/to-spec 把刚才讨论的装备合成需求整理成 spec 发布到 issue tracker
+```
+
+Agent **不做访谈**，只综合当前对话已经达成的共识，输出一份正式的 spec 并发布到配置好的 issue tracker（GitHub Issues / GitLab / `.scratch/` 本地 markdown）。
+
+它和 `/grill-with-docs` 的区别：
+
+- `/grill-with-docs` — 边访谈边打磨需求，适合需求还不清晰、需要对齐的场景
+- `/to-spec` — 不做访谈，直接综合已有讨论，适合共识已经形成、只需要落成文档的场景
+
+产出 spec 后，可以接着用 `/implement` 基于 spec 实现，或先用 `/code-review` 以 spec 为轴审查已有变更是否符合。
+
+---
+
+### 4. 调试 Bug：定位战斗回放不同步
 
 当你遇到锁步战斗回放不一致的问题时：
 
@@ -114,7 +133,7 @@ Agent 会按纪律化诊断循环推进：
 
 ---
 
-### 4. 架构治理：防止代码腐化
+### 5. 架构治理：防止代码腐化
 
 每隔几天运行一次架构扫描：
 
@@ -132,7 +151,7 @@ Agent 会扫描代码库寻找深化机会（deepening opportunities），生成
 
 ---
 
-### 5. TDD：为领域逻辑写测试
+### 6. TDD：为领域逻辑写测试
 
 当你要给 Model 层的数值规则加测试时：
 
@@ -150,7 +169,7 @@ Agent 会走 red-green-refactor 循环：
 
 ---
 
-### 6. 拆解大任务：规划复杂功能
+### 7. 拆解大任务：规划复杂功能
 
 当你有一个需要多步骤完成的大型功能时：
 
@@ -170,7 +189,7 @@ Agent 会把 plan 拆成 tracer-bullet tickets，每个 ticket 是一个小的�
 
 ---
 
-### 7. 合并冲突：解决 Unity 场景冲突
+### 8. 合并冲突：解决 Unity 场景冲突
 
 当多人同时修改同一个 Unity 场景导致 merge conflict 时：
 
@@ -182,7 +201,7 @@ Agent 会逐个 hunk 处理冲突，追溯到各方的 primary source intent 来
 
 ---
 
-### 8. 知识传承：交接给其他开发者
+### 9. 知识传承：交接给其他开发者
 
 当你需要把当前工作交接给同事时：
 
