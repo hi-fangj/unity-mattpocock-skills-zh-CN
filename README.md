@@ -37,6 +37,163 @@ npx skills@latest add hi-fangj/unity-mattpocock-skills-zh-CN
   </a>
 </p>
 
+## Unity 使用示例
+
+以下是在 Unity 项目中日常使用这些 skills 的典型场景。所有示例均以中文与 agent 交互。
+
+### 1. 首次接入：初始化 Unity 项目
+
+在 Unity 项目根目录下，先安装 skills，然后运行 setup：
+
+```bash
+npx skills@latest add hi-fangj/unity-mattpocock-skills-zh-CN
+```
+
+在 agent 中运行：
+
+```
+/setup-matt-pocock-skills
+```
+
+Setup 会自动检测 `ProjectSettings/ProjectVersion.txt` 识别 Unity 项目，并生成 `docs/agents/unity-development.md`，记录项目的 assembly 边界、生成代码目录、编译入口和高风险模块。完成后，后续所有 engineering skills 都会感知 Unity 项目约束。
+
+---
+
+### 2. 日常开发：实现新功能
+
+假设你要给自走棋游戏添加一个新装备系统。
+
+**第一步：对齐需求**
+
+```
+/grill-with-docs 我要给自走棋添加一个装备合成系统，玩家可以把三件相同品质的装备合成为一件更高品质的随机装备
+```
+
+Agent 会围绕你的想法追问：合成规则的三消还是三合一？品质跃升是一级还是可跨级？合成失败怎么处理？同时把讨论中明确的术语（如 "装备品质"、"合成配方"）写入 `CONTEXT.md`，把关键决策写入 `docs/adr/`。
+
+**第二步：实现**
+
+```
+/implement 按照刚才讨论的装备合成系统，实现 Model 层的合成逻辑和 ModelView 层的合成面板 UI
+```
+
+Agent 会：
+- 读取 `AGENTS.md` 确认架构边界（Model 放规则，ModelView 放 UI）
+- 通过 `$unity-development` 选择正确的验证方式（纯 C# 编译 → EditMode 测试 → PlayMode 验证）
+- 一次完成一个行为闭环，每个 slice 后编译受影响的 assembly
+- 遵守生成代码只读约束，不手改 `Assets/Scripts/Model/Generate/` 下的文件
+
+**第三步：代码审查**
+
+```
+/code-review
+```
+
+Agent 会从 Standards（是否符合 AGENTS.md 编码规范）和 Spec（是否符合装备合成需求）两个轴线并行审查变更。
+
+---
+
+### 3. 调试 Bug：定位战斗回放不同步
+
+当你遇到锁步战斗回放不一致的问题时：
+
+```
+/diagnosing-bugs 战斗回放时，第5回合的棋子位置和对战时不一致，应该是同步逻辑有问题
+```
+
+Agent 会按纪律化诊断循环推进：
+
+1. **Reproduce** — 确认问题在哪些回合/阵容下必现
+2. **Minimise** — 构造最小复现 case（例如只有两个棋子的简单对局）
+3. **Hypothesise** — 检查 `LS*` 锁步相关代码、事件序列化/反序列化
+4. **Instrument** — 在关键路径加日志，对比实时战斗和回放的 event stream
+5. **Fix** — 定位根因后修复
+6. **Regression-test** — 用复现 case 验证修复，并加入回归检查清单
+
+因为涉及锁步逻辑（AGENTS.md 标记的高风险区域），agent 会同时检查逻辑侧和视图侧的一致性。
+
+---
+
+### 4. 架构治理：防止代码腐化
+
+每隔几天运行一次架构扫描：
+
+```
+/improve-codebase-architecture
+```
+
+Agent 会扫描代码库寻找深化机会（deepening opportunities），生成可视化 HTML 报告。例如可能发现：
+
+- Model 层混入了 UnityEngine 依赖 → 建议提取到 ModelView
+- FairyGUI 生成包装类被手改 → 建议修改生成器源配置
+- 多个 System 重复实现相似的资源加载逻辑 → 建议抽象到 Core 层
+
+选中某个候选项后，agent 会继续追问帮你明确重构方案。
+
+---
+
+### 5. TDD：为领域逻辑写测试
+
+当你要给 Model 层的数值规则加测试时：
+
+```
+/tdd 给棋子升级经验曲线写单元测试，验证从1星升2星需要10经验，2星升3星需要20经验
+```
+
+Agent 会走 red-green-refactor 循环：
+
+1. **Red** — 先写一个失败测试（因为升级逻辑可能还没实现或不正确）
+2. **Green** — 实现或修正代码让测试通过
+3. **Refactor** — 在测试保护下重构，消除重复、改善命名
+
+因为是纯 C# 领域逻辑（不依赖 UnityEngine），可以直接用 `dotnet build` + EditMode test 快速验证，反馈循环很快。
+
+---
+
+### 6. 拆解大任务：规划复杂功能
+
+当你有一个需要多步骤完成的大型功能时：
+
+```
+/wayfinder 我要实现一个完整的 PVP 匹配对战系统，包括匹配队列、段位计算、赛季结算
+```
+
+Agent 会在 issue tracker 上创建 decision tickets 地图，把大块工作拆成可独立推进的子任务，每个子任务声明 blocking edges（前置依赖）。你可以逐个解决，直到通往目标的路径完全清晰。
+
+然后：
+
+```
+/to-tickets 把匹配对战系统的 plan 拆成实现 tickets
+```
+
+Agent 会把 plan 拆成 tracer-bullet tickets，每个 ticket 是一个小的、可独立验证的 vertical slice。
+
+---
+
+### 7. 合并冲突：解决 Unity 场景冲突
+
+当多人同时修改同一个 Unity 场景导致 merge conflict 时：
+
+```
+/resolving-merge-conflicts
+```
+
+Agent 会逐个 hunk 处理冲突，追溯到各方的 primary source intent 来解决，而不是简单地 `--abort`。对 `.unity` 场景文件和 `.prefab` 文件（YAML 格式），agent 会小心处理 GameObject / Component 引用完整性。
+
+---
+
+### 8. 知识传承：交接给其他开发者
+
+当你需要把当前工作交接给同事时：
+
+```
+/handoff
+```
+
+Agent 会把当前对话压缩成交接文档，包含：当前进度、已做出的关键决策、待解决的问题、下一步计划。另一位开发者用 agent 加载交接文档后即可继续。
+
+---
+
 ## 原版 README 翻译
 
 我每天用于真实工程工作的 agent skills，不是 vibe coding。
