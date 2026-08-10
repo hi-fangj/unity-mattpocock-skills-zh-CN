@@ -41,6 +41,50 @@ npx skills@latest add hi-fangj/unity-mattpocock-skills-zh-CN
 
 以下是在 Unity 项目中日常使用这些 skills 的典型场景。所有示例均以中文与 agent 交互。
 
+整体工作流如下：
+
+```mermaid
+flowchart TD
+    A["npx skills@latest add ... 安装 skills"]
+    B["/setup-matt-pocock-skills 初始化项目<br/>生成 docs/agents/unity-development.md"]
+    A --> B
+
+    C{"需求是否清晰？"}
+    B --> C
+    D["/grill-with-docs<br/>对齐需求、打磨术语、记录 ADR"]
+    C -- "否" --> D
+    E["/to-spec<br/>把已讨论的内容沉淀成正式 Spec"]
+    C -- "是" --> E
+    D --> E
+
+    F["/to-tickets 拆成可独立验证的实现 tickets"]
+    E --> F
+    G["/implement 按 vertical slice 实现<br/>每个 slice 后编译受影响的 assembly"]
+    F --> G
+
+    H{"涉及纯领域逻辑<br/>（数值规则 / 状态机）？"}
+    G --> H
+    I["/tdd<br/>red-green-refactor 循环"]
+    H -- "是" --> I
+    J["通过 \$unity-development 选择验证方式<br/>EditMode 测试 / PlayMode / 编译 / 手动验证"]
+    H -- "否" --> J
+    I --> J
+
+    K["/code-review 双轴审查<br/>Standards 与 Spec 并行"]
+    J --> K
+    L{"审查通过？"}
+    K --> L
+    L -- "否" --> G
+    L -- "是" --> M["提交 / 发布"]
+
+    B -.日常维护.-> N["/diagnosing-bugs 调试<br/>reproduce → minimise → fix → regression-test"]
+    B -.日常维护.-> O["/improve-codebase-architecture<br/>定期扫描架构腐化"]
+    B -.日常维护.-> P["/handoff 交接给其他开发者"]
+    B -.日常维护.-> Q["/resolving-merge-conflicts 解决合并冲突"]
+```
+
+> Mermaid 图表在 GitHub 上直接渲染；若你的 Markdown 预览器不支持，可把上方代码块内容粘贴到 [mermaid.live](https://mermaid.live) 查看。
+
 ### 1. 首次接入：初始化 Unity 项目
 
 在 Unity 项目根目录下，先安装 skills，然后运行 setup：
