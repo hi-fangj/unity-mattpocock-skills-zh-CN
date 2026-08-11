@@ -19,7 +19,7 @@
 
 ### 同步日志
 
-- 2026-08-11: Synced upstream `mattpocock/skills@84fdeff`，local commit pending。完整刷新 engineering/productivity 技能集：重译 `grilling`（rounds + frontier）、`prototype`（shareable HTML logic demo，保留 UNITY.md）、`diagnosing-bugs`（Redact）与 `wizard`（迁移到 engineering 并改为 model-invoked）；迁移 `to-questionnaire` 到 productivity；新增 `wait-what`、`writing-for-agents`（含 SKILL-MECHANICS）及 `ask-matt/PHASE-BOUNDARIES.md`；删除上游已移除的 `writing-great-skills` 与 `batch-grill-me`；同步其余 11 个 skill 的 spec 术语与措辞更新，并刷新全部索引。
+- 2026-08-11: Synced upstream `mattpocock/skills@84fdeff`，local commit `d525a18`。完整刷新 engineering/productivity 技能集：重译 `grilling`（rounds + frontier）、`prototype`（shareable HTML logic demo，保留 UNITY.md）、`diagnosing-bugs`（Redact）与 `wizard`（迁移到 engineering 并改为 model-invoked）；迁移 `to-questionnaire` 到 productivity；新增 `wait-what`、`writing-for-agents`（含 SKILL-MECHANICS）及 `ask-matt/PHASE-BOUNDARIES.md`；删除上游已移除的 `writing-great-skills` 与 `batch-grill-me`；同步其余 11 个 skill 的 spec 术语与措辞更新，并刷新全部索引。
 
 ## 30 秒安装
 
