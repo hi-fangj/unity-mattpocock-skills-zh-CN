@@ -26,7 +26,7 @@ disable-model-invocation: true
 
 当 `ProjectSettings/ProjectVersion.txt` 表明这是 Unity project 时，还要读取 [UNITY.md](UNITY.md) 与 repository 的 `docs/agents/unity-development.md`。把 assembly definitions、generated-code ownership、serialized assets 与 Unity lifecycle entrypoints 当作 architecture evidence，而不是 incidental implementation detail。
 
-然后使用 Agent tool，并设置 `subagent_type=Explore` 来遍历 codebase。不要套死板 heuristics；自然探索，并记录你感到 friction 的地方：
+然后启动一个 sub-agent 遍历 codebase。不要套死板 heuristics；自然探索，并记录你感到 friction 的地方：
 
 - 理解一个概念是否需要在许多小 modules 之间来回跳？
 - 哪些 modules 是 **shallow** 的，即 interface 几乎和 implementation 一样复杂？

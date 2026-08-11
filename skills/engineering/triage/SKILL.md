@@ -73,7 +73,7 @@ Maintainer 调用 `/triage`，并用自然语言描述想要什么。解释请�
 
 3. **Verify the claim.** 在任何 grilling 前，检查该 claim 是否成立。对 bug，从 reporter 的步骤复现。对 PR，确认 diff 做到了它所声称的——checkout 它，运行相关 tests 或 commands。报告发生了什么：已确认（附 code path）、失败，或细节不足（强烈的 `needs-info` 信号）。已确认的验证会让 agent brief 更有力。
 
-4. **Grill（如果需要）.** 如果请求需要进一步充实，一起运行 `/grilling` 和 `/domain-modeling` skills——一次一个问题把它 grill 成形，在 decisions 落定时打磨 domain terms 并内联更新 `CONTEXT.md`/ADRs。
+4. **Grill（如果需要）.** 如果请求需要进一步充实，一起运行 `/grilling` 和 `/domain-modeling` skills——一轮一轮地把它 grill 成形，在 decisions 落定时打磨 domain terms 并内联更新 `CONTEXT.md`/ADRs。
 
 5. **Apply the outcome:**
    - `ready-for-agent` — 发布 agent brief comment（[AGENT-BRIEF.md](AGENT-BRIEF.md)）。

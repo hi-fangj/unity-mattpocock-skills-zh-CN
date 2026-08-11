@@ -1,6 +1,6 @@
 # Issue tracker: GitHub
 
-这个 repo 的 issues 和 PRDs 存放在 GitHub issues 中。所有操作都使用 `gh` CLI。
+这个 repo 的 issues 和 specs 存放在 GitHub issues 中。所有操作都使用 `gh` CLI。
 
 ## Conventions
 

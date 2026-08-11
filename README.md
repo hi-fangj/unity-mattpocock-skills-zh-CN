@@ -17,6 +17,10 @@
 
 本仓库的最近一次同步翻译由 OpenAI Codex（GPT-5 coding agent）执行，并由仓库维护者通过提交记录纳入 `main`。翻译策略是 **skill-guided content localization**：把上游 `mattpocock/skills` 当作英文内容来源，只翻译自然语言说明，保留目录名、skill name、frontmatter key、命令、代码块、路径、URL、package/tool/API identifiers 和行为关键 labels。用户可见的安装路径统一保持为 `hi-fangj/unity-mattpocock-skills-zh-CN`。
 
+### 同步日志
+
+- 2026-08-11: Synced upstream `mattpocock/skills@84fdeff`，local commit pending。完整刷新 engineering/productivity 技能集：重译 `grilling`（rounds + frontier）、`prototype`（shareable HTML logic demo，保留 UNITY.md）、`diagnosing-bugs`（Redact）与 `wizard`（迁移到 engineering 并改为 model-invoked）；迁移 `to-questionnaire` 到 productivity；新增 `wait-what`、`writing-for-agents`（含 SKILL-MECHANICS）及 `ask-matt/PHASE-BOUNDARIES.md`；删除上游已移除的 `writing-great-skills` 与 `batch-grill-me`；同步其余 11 个 skill 的 spec 术语与措辞更新，并刷新全部索引。
+
 ## 30 秒安装
 
 ```bash
@@ -437,7 +441,8 @@ AI 时代也是一样。你和 agent 之间存在沟通缺口。修复方式是�
 **Model-invoked**
 
 - **[unity-development](./skills/engineering/unity-development/SKILL.md)** - 为 Unity C#、assemblies、MonoBehaviours、scenes、prefabs、Editor tooling、assets、UI 与 deterministic gameplay 选择忠实的实现和验证循环。
-- **[prototype](./skills/engineering/prototype/SKILL.md)** - 构建 throwaway prototype，回答 state/business-logic 问题或探索 UI 变体。
+- **[prototype](./skills/engineering/prototype/SKILL.md)** - 构建 throwaway prototype，回答 state/business-logic 问题（单文件 shareable HTML demo）或探索 UI 变体。
+- **[wizard](./skills/engineering/wizard/SKILL.md)** - 生成一个交互式 bash wizard，引导人完成只有他们才能执行的步骤：provisioning infrastructure、设置 credentials 或 CI secrets、操作陌生第三方 dashboard，或运行一次性 migration 或 cutover。
 - **[diagnosing-bugs](./skills/engineering/diagnosing-bugs/SKILL.md)** - 面向棘手 bug 和性能回退的纪律化诊断循环：reproduce -> minimise -> hypothesise -> instrument -> fix -> regression-test。
 - **[research](./skills/engineering/research/SKILL.md)** - 对照 high-trust primary sources 调研问题，并把带引用的 findings 保存为 Markdown 文件。
 - **[tdd](./skills/engineering/tdd/SKILL.md)** - 使用 red-green-refactor 循环做 test-driven development；一次一个 vertical slice 地构建功能或修复 bug。
@@ -455,11 +460,13 @@ AI 时代也是一样。你和 agent 之间存在沟通缺口。修复方式是�
 - **[grill-me](./skills/productivity/grill-me/SKILL.md)** - 围绕计划或设计持续追问，直到 decision tree 的每个分支都被解决。
 - **[handoff](./skills/productivity/handoff/SKILL.md)** - 把当前对话压缩成 handoff document，让另一个 agent 可以继续。
 - **[teach](./skills/productivity/teach/SKILL.md)** - 使用当前目录作为 stateful teaching workspace，在多个 sessions 中教用户一个新 skill 或概念。
-- **[writing-great-skills](./skills/productivity/writing-great-skills/SKILL.md)** - 编写和编辑优秀 skills 的 reference：让 skill 可预测的词汇和原则。
+- **[to-questionnaire](./skills/productivity/to-questionnaire/SKILL.md)** - 把你无法独自回答的 decision 转成一份 Markdown questionnaire，交给唯一能回答的那个人——异步填写，或在会议中一起填写。
+- **[wait-what](./skills/productivity/wait-what/SKILL.md)** - 当一条消息没有落地时触发它。agent 会用你缺失的 context、用平实的语言、用你的 `CONTEXT.md` 词汇重新表述。
+- **[writing-for-agents](./skills/productivity/writing-for-agents/SKILL.md)** - 编写供 agents 消费的文档：skills、AGENTS.md/CLAUDE.md，以及任何 agent 通过 pointer 到达的 doc。
 
 **Model-invoked**
 
-- **[grilling](./skills/productivity/grilling/SKILL.md)** - 围绕计划、decision 或 idea 持续访谈用户，直到 decision tree 的每个分支都被解决。它是 `grill-me` 和 `grill-with-docs` 背后的 reusable loop。
+- **[grilling](./skills/productivity/grilling/SKILL.md)** - 围绕计划、decision 或 idea 按轮次持续访谈用户，直到 design tree 的每个分支都被解决。它是 `grill-me` 和 `grill-with-docs` 背后的 reusable loop。
 
 #### Misc
 

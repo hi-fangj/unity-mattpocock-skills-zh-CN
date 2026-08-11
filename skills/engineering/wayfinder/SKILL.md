@@ -76,7 +76,7 @@ Blocking 使用 tracker 的 **native** dependency relationship；这很重要，
 
 - **Research**（AFK）：阅读 documentation、third-party APIs，或 knowledge bases 等 local resources，找出某项 decision 正在等待的事实。交给 `/research` **subagent** 解决。当需要当前 working directory 外的知识时使用。
 - **Prototype**（HITL）：通过 cheap、rough、concrete artifact 提高讨论 fidelity，例如 outline、rough take、stub，或通过 /prototype skill 写 UI/logic code。Prototype 作为 asset 链接。当核心问题是 "how should it look" 或 "how should it behave" 时使用。
-- **Grilling**（HITL）：通过 /grilling 和 /domain-modeling skills 进行 conversation，一次问一个问题。默认类型。
+- **Grilling**（HITL）：Conversation。默认类型。总是调用 /grilling 和 /domain-modeling skills。
 - **Task**（HITL 或 AFK）：做出 *decision* 前必须完成、但本身没有要 decide、prototype 或 research 的 manual work。例如注册服务以评估其 API、配置访问权限、移动数据以看清 shape。这是唯一会 *do* 而不是 decide 的类型；它凭借解锁 decision 而存在，而不是交付 destination。Agent 能独立完成时采用 AFK，否则给人类精确 checklist（HITL）。工作完成后 resolved；答案记录做了什么，以及后续 tickets 依赖的事实（credentials location、new URLs、row counts 等）。
 
 ## Fog of war

@@ -11,6 +11,12 @@ description: 面向棘手缺陷和性能回退的诊断循环。适用于用户�
 
 当 `ProjectSettings/ProjectVersion.txt` 表明这是 Unity project 时，读取 [UNITY.md](UNITY.md)。其中 feedback-loop 与 regression-evidence rules 覆盖本文档的 command-line assumptions。
 
+## Redact
+
+这个 skill 会展示 commands、outputs 和 captured artifacts。**先 redact 每一个 secret**——用 `<REDACTED>` 写在它原本的位置。构建 loop 时使用 env vars，让 credential 留在 environment 里而不是留在你展示的内容中。Captured artifacts 带有 auth headers：只引用承载 signal 的那些行。
+
+如果 redacted 后的 output 不足以诊断 bug，就明确说明并询问用户。
+
 ## Phase 1 - Build a feedback loop
 
 **这就是这个 skill 的核心。** 其他所有内容都是机械步骤。如果你拥有一个针对该 bug 的 **tight** pass/fail signal，即它会在 _这个_ bug 上变红，你就能找到原因；bisection、hypothesis-testing 和 instrumentation 都只是消费这个 signal。没有它，盯着代码看多久都救不了你。
@@ -52,7 +58,7 @@ Tight loop 是环境允许的最快 faithful loop。Pure code 最好是秒级；
 
 ### Completion criterion - a tight loop that goes red
 
-Phase 1 完成条件：loop **tight** 且 **red-capable**。你能指出一个 command、replay、runtime scenario 或 exact human-assisted sequence，并且已经至少执行过一次，且它满足：
+Phase 1 完成条件：loop **tight** 且 **red-capable**。你能指出**一个 command**——一个 script path、test invocation 或 curl——你已经**至少执行过一次**（展示 invocation 和它的 output，redacted），且它满足：
 
 - [ ] **Red-capable** - 它驱动真实 bug code path，并断言 **用户的 exact symptom**，因此能在该 bug 上变红、修复后变绿。不是 "runs without erroring"，而是必须能 _catch this specific bug_。
 - [ ] **Deterministic** - 每次运行 verdict 相同（flaky bugs：按上文固定到高复现率）。

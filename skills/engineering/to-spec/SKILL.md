@@ -4,7 +4,7 @@ description: 把当前对话转成 spec 并发布到项目 issue tracker——�
 disable-model-invocation: true
 ---
 
-这个 skill 使用当前 conversation context 和 codebase understanding 产出 spec（你可能把这种文档称为 PRD）。**不要**访谈用户，只综合你已经知道的内容。
+这个 skill 使用当前 conversation context 和 codebase understanding 产出 spec。**不要**访谈用户，只综合你已经知道的内容。
 
 Issue tracker 和 triage label vocabulary 应该已经提供给你；如果没有，运行 `/setup-matt-pocock-skills`。
 

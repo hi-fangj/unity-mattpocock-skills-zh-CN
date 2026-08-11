@@ -1,6 +1,6 @@
 # Issue tracker: GitLab
 
-这个 repo 的 issues 和 PRDs 存放在 GitLab issues 中。所有操作都使用 [`glab`](https://gitlab.com/gitlab-org/cli) CLI。
+这个 repo 的 issues 和 specs 存放在 GitLab issues 中。所有操作都使用 [`glab`](https://gitlab.com/gitlab-org/cli) CLI。
 
 ## Conventions
 

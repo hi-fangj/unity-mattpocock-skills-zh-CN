@@ -1,14 +1,13 @@
 ---
 name: wizard
-description: 生成一个交互式 bash wizard，引导人完成一项手动流程——第三方 setup、一次性 migration、A→B 状态迁移——打开 URL、捕获值、逐步确认，并写入 .env 文件和 GitHub Actions secrets。
-disable-model-invocation: true
+description: 生成一个交互式 bash wizard，引导人完成只有他们才能执行的步骤。用于 provisioning infrastructure、设置 credentials 或 CI secrets、在陌生的第三方 dashboard 上操作，或运行一次性 migration 或 cutover。不要为 agent 自己能执行的步骤调用它。
 ---
 
 # Wizard
 
 **Wizard** 是一个 bash 脚本，它一步一步引导人完成一项手动流程——这类流程手动做很繁琐，每次重新向 AI 解释一遍也很繁琐。它会打开每个 URL，准确说明该点什么、该复制什么，捕获这些值，把它们写到该去的地方（`.env`、GitHub secrets），在每个阶段确认，并显示还剩多少。它可能用于配置第三方服务、运行一次性 migration，或把项目从一种状态迁移到另一种状态。
 
-出色的 UX 已经由 [template.sh](template.sh) 解决——带剩余时间的进度、confirmation gates、跨平台 URL 打开（含 WSL）、隐藏的 secret 输入、幂等的 `.env` upsert、`gh secret`/`gh variable` 写入，以及收尾 summary。**你的工作只是确定流程范围并编写它的各个 stage。** `STAGES` 标记之上的 library 在每个 wizard 中都完全相同；这种一致性正是重点——永远不要手动编辑它。
+出色的 UX 已经由 [template.sh](template.sh) 解决——stage-by-stage 的进度、confirmation gates、跨平台 URL 打开（含 WSL）、隐藏的 secret 输入、幂等的 `.env` upsert、`gh secret`/`gh variable` 写入，以及收尾 summary。**你的工作只是确定流程范围并编写它的各个 stage。** `STAGES` 标记之上的 library 在每个 wizard 中都完全相同；这种一致性正是重点——永远不要手动编辑它。
 
 Wizard 默认是临时的——为单次运行而构建，保存到 scratch 或 `scripts/` 路径，任务完成后删除。只有当用户想要一条应留在 repo 中的可重复 setup 路径时，才 commit 它。
 
@@ -33,7 +32,7 @@ Wizard 默认是临时的——为单次运行而构建，保存到 scratch 或 
 
 ### 3. Author the wizard
 
-把 `template.sh` 复制到目标路径。用每个步骤一个 `stage` 替换示例 stage，按依赖顺序排列。使用 library helpers——`stage`、`say`/`step`、`open_url`、`ask`/`ask_secret`、`write_env`、`set_secret`/`set_var`、`pause`/`confirm`——并把 `TOTAL_STAGES` 和 `TOTAL_MINUTES` 设为诚实的估计值（这驱动剩余时间显示）。
+把 `template.sh` 复制到目标路径。用每个步骤一个 `stage` 替换示例 stage，按依赖顺序排列。使用 library helpers——`stage`、`say`/`step`、`open_url`、`ask`/`ask_secret`、`write_env`、`set_secret`/`set_var`、`pause`/`confirm`——并把 `TOTAL_STAGES` 设为写出的 stages 数量。
 
 守住 template 设定的标准：在索取某个 URL 的值之前先打开它，对任何 secret 使用 `ask_secret`，对每个持久化的值使用 `write_env`，只对 CI 确实需要的值使用 `set_secret`，并在任何不可逆操作之前 `confirm`。每个 `stage` 都会清屏，因此只显示当前步骤——让一个 stage 只聚焦一项任务，这样人需要的内容就不会滚出视野。不要触碰标记之上的 library。
 

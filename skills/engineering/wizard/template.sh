@@ -8,6 +8,10 @@
 
 set -euo pipefail
 
+# ──────────────────────────────────────────────────────────────────────────
+# Wizard library — delightful, consistent UX. Identical across every wizard.
+# ──────────────────────────────────────────────────────────────────────────
+
 if [[ -t 1 ]] && command -v tput >/dev/null 2>&1 && [[ "$(tput colors 2>/dev/null || echo 0)" -ge 8 ]]; then
   BOLD=$(tput bold); DIM=$(tput dim); RESET=$(tput sgr0)
   BLUE=$(tput setaf 4); GREEN=$(tput setaf 2); YELLOW=$(tput setaf 3); RED=$(tput setaf 1)
@@ -15,47 +19,50 @@ else
   BOLD=""; DIM=""; RESET=""; BLUE=""; GREEN=""; YELLOW=""; RED=""
 fi
 
+# Author sets this at the top of the stages section.
 TOTAL_STAGES=0
-TOTAL_MINUTES=0
 
 _STAGE_INDEX=0
-_MINUTES_ELAPSED=0
 ENV_FILE="${ENV_FILE:-.env}"
-WRITTEN_ENV=()
-WRITTEN_SECRET=()
-SKIPPED=()
+WRITTEN_ENV=()    # KEYs written to ENV_FILE this run
+WRITTEN_SECRET=() # secret NAMEs set this run
+SKIPPED=()        # things we couldn't do (e.g. gh missing)
 
+# _clear — wipe the terminal so only the current step is on screen. No-op when
+# output isn't a terminal, so piped logs stay readable.
 _clear() {
   [[ -t 1 ]] || return 0
   if command -v tput >/dev/null 2>&1; then tput clear; else printf '\033[2J\033[3J\033[H'; fi
 }
 
+# banner "Title" — opening frame: what this wizard does.
 banner() {
   _clear
   printf '\n%s%s  %s%s\n' "$BOLD" "$BLUE" "$1" "$RESET"
-  printf '%s  %s stages · about %s minutes%s\n\n' \
-    "$DIM" "$TOTAL_STAGES" "$TOTAL_MINUTES" "$RESET"
+  printf '%s  %s stages%s\n\n' "$DIM" "$TOTAL_STAGES" "$RESET"
   printf '%s  You drive the browser; this wizard tells you exactly what to do and\n' "$DIM"
   printf '  captures the values you copy back. Stop any time with Ctrl-C and re-run\n'
   printf '  later — it remembers values already saved.%s\n' "$RESET"
   pause "Ready to start?"
 }
 
+# stage "Name" — clear the screen, then announce a stage and show progress.
+# Clearing keeps only the current step on screen.
 stage() {
   _clear
   _STAGE_INDEX=$((_STAGE_INDEX + 1))
-  local remaining=$((TOTAL_MINUTES - _MINUTES_ELAPSED))
-  (( remaining < 0 )) && remaining=0
-  _MINUTES_ELAPSED=$((_MINUTES_ELAPSED + ${2:-0}))
-  printf '\n%s%s▸ Stage %s/%s · %s%s  %s(~%s min left)%s\n' \
-    "$BOLD" "$BLUE" "$_STAGE_INDEX" "$TOTAL_STAGES" "$1" "$RESET" "$DIM" "$remaining" "$RESET"
+  printf '\n%s%s▸ Stage %s/%s · %s%s\n' \
+    "$BOLD" "$BLUE" "$_STAGE_INDEX" "$TOTAL_STAGES" "$1" "$RESET"
 }
 
+# say "..." — a plain instruction line.
 say()  { printf '  %s\n' "$1"; }
+# step "..." — a numbered-feeling action the human takes in the browser.
 step() { printf '  %s•%s %s\n' "$BLUE" "$RESET" "$1"; }
 note() { printf '  %s%s%s\n' "$DIM" "$1" "$RESET"; }
 warn() { printf '  %s⚠ %s%s\n' "$YELLOW" "$1" "$RESET"; }
 
+# open_url URL — open in the human's browser, cross-platform incl. WSL.
 open_url() {
   local url="$1"
   printf '  %s↗ opening%s %s\n' "$GREEN" "$RESET" "$url"
@@ -67,11 +74,13 @@ open_url() {
   } >/dev/null 2>&1 || warn "couldn't open a browser — visit it manually: $url"
 }
 
+# pause "msg" — wait for the human to confirm they've done the manual part.
 pause() {
   printf '  %s%s%s ' "$DIM" "${1:-Press Enter to continue}" "$RESET"
   read -r _ || true
 }
 
+# confirm "question" — y/N gate; returns success on yes.
 confirm() {
   local reply=""
   printf '  %s? %s [y/N] ' "$YELLOW" "$1"
@@ -79,12 +88,15 @@ confirm() {
   [[ "$reply" =~ ^[Yy] ]]
 }
 
+# _existing KEY — current value of KEY in ENV_FILE, if any.
 _existing() {
   [[ -f "$ENV_FILE" ]] || return 1
   local line; line=$(grep -E "^${1}=" "$ENV_FILE" | tail -n1) || return 1
   printf '%s' "${line#*=}"
 }
 
+# ask KEY "Prompt" — read a value into $KEY. Offers the existing .env value as
+# a default on re-runs (Enter keeps it). Visible input (non-secret).
 ask() {
   local key="$1" prompt="$2" current input
   current=$(_existing "$key" || true)
@@ -98,6 +110,7 @@ ask() {
   printf -v "$key" '%s' "$input"
 }
 
+# ask_secret KEY "Prompt" — like ask, but input is hidden.
 ask_secret() {
   local key="$1" prompt="$2" current input
   current=$(_existing "$key" || true)
@@ -112,6 +125,8 @@ ask_secret() {
   printf -v "$key" '%s' "$input"
 }
 
+# write_env KEY VALUE — upsert KEY=VALUE into ENV_FILE (creates it; replaces
+# any existing line). Idempotent.
 write_env() {
   local key="$1" value="$2" tmp
   touch "$ENV_FILE"
@@ -123,6 +138,8 @@ write_env() {
   printf '  %s✓ wrote%s %s → %s\n' "$GREEN" "$RESET" "$key" "$ENV_FILE"
 }
 
+# set_secret NAME VALUE — set a GitHub Actions repo secret via gh. Falls back
+# to a warning (and records it) if gh is unavailable or unauthenticated.
 set_secret() {
   local name="$1" value="$2"
   if command -v gh >/dev/null 2>&1 && gh auth status >/dev/null 2>&1; then
@@ -136,6 +153,7 @@ set_secret() {
   warn "skipped GitHub secret $name — gh not ready; set it later"
 }
 
+# set_var NAME VALUE — set a GitHub Actions repo variable (non-secret).
 set_var() {
   local name="$1" value="$2"
   if command -v gh >/dev/null 2>&1 && gh auth status >/dev/null 2>&1; then
@@ -148,6 +166,7 @@ set_var() {
   warn "skipped GitHub variable $name — gh not ready; set it later"
 }
 
+# finish — clear, then a closing summary of everything configured.
 finish() {
   _clear
   printf '\n%s%s  ✓ Setup complete%s\n' "$BOLD" "$GREEN" "$RESET"
@@ -160,12 +179,17 @@ finish() {
   printf '\n'
 }
 
+# ──────────────────────────────────────────────────────────────────────────
+# STAGES — author this section. One stage() per step the human takes.
+# Replace the example below. Set TOTAL_STAGES to match the stages you write.
+# ──────────────────────────────────────────────────────────────────────────
+
 TOTAL_STAGES=1
-TOTAL_MINUTES=5
 
 banner "Stripe setup"
 
-stage "Stripe — API keys" 5
+# ── Example stage: replace with your real steps ───────────────────────────
+stage "Stripe — API keys"
 say "We'll grab your Stripe test keys and store them for local dev + CI."
 open_url "https://dashboard.stripe.com/test/apikeys"
 step "On the API keys page, copy the Publishable key (starts pk_test_)."
@@ -174,6 +198,7 @@ step "Click 'Reveal test key' on the Secret key row, then copy it."
 ask_secret STRIPE_SECRET_KEY "Paste the secret key:"
 write_env STRIPE_PUBLISHABLE_KEY "$STRIPE_PUBLISHABLE_KEY"
 write_env STRIPE_SECRET_KEY "$STRIPE_SECRET_KEY"
-set_secret STRIPE_SECRET_KEY "$STRIPE_SECRET_KEY"
+set_secret STRIPE_SECRET_KEY "$STRIPE_SECRET_KEY"   # CI needs this one
+# ──────────────────────────────────────────────────────────────────────────
 
 finish

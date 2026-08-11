@@ -26,7 +26,7 @@ npx skills update prototype
 
 问题决定形状，而形状有两种：
 
-- **"这个 logic / state model 感觉对吗？"**——一个小型交互式 terminal app，推动 state machine 走过那些棘手的 case，在每次动作后打印完整 state，让你能观察什么发生了变化。
+- **"这个 logic / state model 感觉对吗？"**——一个自包含的单文件 HTML demo，任何人都能通过点击按钮驱动 state model。Free-play buttons 加 tabbed guided walkthroughs，把它交给非开发者——designer、PM、domain expert——让他们亲自感受这个 model。
 - **"这应该长什么样？"**——在同一路由上的几个截然不同的 UI variations，可通过一个浮动栏切换，这样你对比的是真实渲染，而不是凭空想象。
 
 选错分支会浪费掉整个 prototype，所以问题要先于一切。两个分支都把 state 保存在内存中、用一条命令运行，并在每一步都呈现完整 state。
