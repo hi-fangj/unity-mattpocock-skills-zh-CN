@@ -1,23 +1,22 @@
-# HTML Report Format
+# HTML 报告格式
 
-Architecture review 渲染为单个 self-contained HTML file，写到 OS temp directory。Tailwind 和 Mermaid 都来自 CDNs。Mermaid 可靠处理 graph-shaped diagrams；手写 divs 和 inline SVG 更适合 editorial visuals（mass diagrams、cross-sections）。两者混用，不要所有内容都依赖 Mermaid，否则会显得 generic。
+架构审查渲染为单个 self-contained HTML 文件，写入 OS temp directory。Tailwind 和 Mermaid 都来自 CDNs。Mermaid 可靠处理 graph-shaped diagrams；手写 divs 和 inline SVG 更适合 editorial visuals（mass diagrams、cross-sections）。两者混用，不要所有内容都依赖 Mermaid，否则会显得 generic。
 
 ## Scaffold
 
 ```html
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
-    <title>Architecture review — {{repo name}}</title>
+    <title>架构审查 — {{repo name}}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="module">
       import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
       mermaid.initialize({ startOnLoad: true, theme: "neutral", securityLevel: "loose" });
     </script>
     <style>
-      /* small custom layer for things Tailwind doesn't cover cleanly:
-         dashed seam lines, hand-drawn-feeling arrow heads, etc. */
+      /* Tailwind 覆盖不干净的小自定义层：dashed seam 线、手绘感箭头等 */
       .seam { stroke-dasharray: 4 4; }
       .leak { stroke: #dc2626; }
       .deep { background: linear-gradient(135deg, #0f172a, #1e293b); }
@@ -35,7 +34,7 @@ Architecture review 渲染为单个 self-contained HTML file，写到 OS temp di
 
 ## Header
 
-Repo name、date，以及紧凑 legend：solid box = module，dashed line = seam，red arrow = leakage，thick dark box = deep module。不要 introduction paragraph，直接进入 candidates。
+Repo 名称、日期，以及紧凑 legend：实线 box = module，dashed 线 = seam，红色 arrow = leakage，粗黑 box = deep module。不要 introduction paragraph，直接进入 candidates。
 
 ## Candidate card
 
@@ -43,13 +42,13 @@ Diagrams 承担主要信息量。Prose 要稀疏、直白，并自然使用 `/co
 
 每个 candidate 是一个 `<article>`：
 
-- **Title** - 简短，命名 deepening（例如 "Collapse the Order intake pipeline"）。
-- **Badge row** - recommendation strength（`Strong` = emerald，`Worth exploring` = amber，`Speculative` = slate），再加 dependency category tag（`in-process`、`local-substitutable`、`ports & adapters`、`mock`）。
-- **Files** - monospace list，`font-mono text-sm`。
-- **Before / After diagram** - 核心内容。两列并排。见下方 patterns。
-- **Problem** - 一句话，说明哪里痛。
-- **Solution** - 一句话，说明什么会改变。
-- **Wins** - bullets，每条不超过 6 words，例如 "Tests hit one interface"、"Pricing logic stops leaking"、"Delete 4 shallow wrappers"。
+- **标题** - 简短，命名 deepening（例如"把 Order intake pipeline 折叠成一个 module"）。
+- **Badge 行** - 推荐强度（`强` = emerald，`值得探索` = amber，`推测性` = slate），再加 dependency category tag（`in-process`、`local-substitutable`、`ports & adapters`、`mock`）。
+- **涉及文件** - monospace 列表，`font-mono text-sm`。
+- **重构前 / 重构后图** - 核心内容。两列并排。见下方 patterns。
+- **问题** - 一句话，说明哪里痛。
+- **解决方案** - 一句话，说明什么会改变。
+- **收益** - bullets，每条不超过 6 words（中文），例如"测试只打一个 interface"、"Pricing logic 不再泄漏"、"删掉 4 个 shallow wrappers"。
 - **ADR callout**（如适用）- amber-tinted box 中一行。
 
 不要写大段解释。如果 diagram 需要一段话才能懂，就重画 diagram。
@@ -60,15 +59,15 @@ Diagrams 承担主要信息量。Prose 要稀疏、直白，并自然使用 `/co
 
 ### Mermaid graph（dependencies / call flow 的主力）
 
-当要表达的是 "X calls Y calls Z, and look at the mess." 时，使用 Mermaid `flowchart` 或 `graph`。把它包在 Tailwind-styled card 中，免得显得是硬塞进来的。用 `classDef` 把 leakage edges 标红，把 deep module 标深色。Sequence diagrams 适合表达 "before: 6 round-trips; after: 1"。
+当要表达的是"X calls Y calls Z，看这一团乱。"时，使用 Mermaid `flowchart` 或 `graph`。把它包在 Tailwind-styled card 中，免得显得是硬塞进来的。用 `classDef` 把 leakage edges 标红，把 deep module 标深色。Sequence diagrams 适合表达"before: 6 次 round-trip；after: 1 次"。
 
 ```html
 <div class="rounded-lg border border-slate-200 bg-white p-4">
   <pre class="mermaid">
     flowchart LR
-      A[OrderHandler] --> B[OrderValidator]
-      B --> C[OrderRepo]
-      C -.leak.-> D[PricingClient]
+      A[订单处理器] --> B[订单校验器]
+      B --> C[订单仓库]
+      C -.leak.-> D[定价客户端]
       classDef leak stroke:#dc2626,stroke-width:2px;
       class C,D leak
   </pre>
@@ -101,23 +100,23 @@ Before：把 function calls tree 渲染为 nested boxes。After：把同一棵 t
 
 ## Top recommendation section
 
-一个更大的 card。Candidate name、一句话说明为什么、指向该 card 的 anchor link。仅此而已。
+一个更大的 card。Candidate 名称、一句话说明为什么、指向该 card 的 anchor link。仅此而已。
 
 ## Tone
 
-Plain English，简洁；但 architectural nouns 和 verbs 必须来自 `/codebase-design` skill。简洁不是术语漂移的借口。
+报告用简体中文写就，简洁；但 architectural nouns 和 verbs 必须来自 `/codebase-design` skill。简洁不是术语漂移的借口。
 
-**Use exactly:** module, interface, implementation, depth, deep, shallow, seam, adapter, leverage, locality.
+**Use exactly（保留英文术语）:** module, interface, implementation, depth, deep, shallow, seam, adapter, leverage, locality.
 
-**Never substitute:** component, service, unit（当你指 module 时）；API, signature（当你指 interface 时）；boundary（当你指 seam 时）；layer, wrapper（当你指 module 时）。
+**Never substitute（保留英文，指代上面这些术语时）:** component, service, unit（当你指 module 时）；API, signature（当你指 interface 时）；boundary（当你指 seam 时）；layer, wrapper（当你指 module 时）。
 
 合适的措辞：
 
-- "Order intake module is shallow - interface nearly matches the implementation."
-- "Pricing leaks across the seam."
-- "Deepen: one interface, one place to test."
-- "Two adapters justify the seam: HTTP in prod, in-memory in tests."
+- "Order intake module 很 shallow——interface 几乎和 implementation 一样宽。"
+- "Pricing 跨过 seam 泄漏出来。"
+- "深化：一个 interface，一个测试落点。"
+- "两个 adapter 才证明 seam 成立：production 用 HTTP，tests 用 in-memory。"
 
-**Wins bullets** 要用 glossary terms 命名收益：*"locality: bugs concentrate in one module"*、*"leverage: one interface, N call sites"*、*"interface shrinks; implementation absorbs the wrappers"*。不要写 *"easier to maintain"* 或 *"cleaner code"*；这些词不在 glossary 中，不能挣到自己的位置。
+**Wins bullets** 要用 glossary terms 命名收益：*"locality：bugs 集中在一个 module"*、*"leverage：一个 interface，N 个 call sites"*、*"interface 缩小；implementation 吸收了 wrappers"*。不要写 *"easier to maintain"* 或 *"cleaner code"*；这些词不在 glossary 中，不能挣到自己的位置。
 
-不要 hedging，不要 throat-clearing，不要 "it's worth noting that..."。一句话如果能变 bullet，就变 bullet。一个 bullet 如果能删，就删。一个 term 不在 `/codebase-design` glossary 中，就先找 glossary 里的词，而不是发明新词。
+不要模棱两可，不要铺垫废话，不要 "it's worth noting that..."。一句话如果能变 bullet，就变 bullet。一个 bullet 如果能删，就删。一个 term 不在 `/codebase-design` glossary 中，就先找 glossary 里的词，而不是发明新词。

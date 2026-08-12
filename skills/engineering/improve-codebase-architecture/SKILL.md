@@ -46,15 +46,15 @@ Report 使用 **Tailwind via CDN** 做 layout/styling，用 **Mermaid via CDN** 
 
 每个 candidate 渲染一张 card，包含：
 
-- **Files** - 涉及哪些 files/modules
-- **Problem** - 当前 architecture 为什么造成 friction
-- **Solution** - 会改变什么，用 plain English 描述
-- **Benefits** - 用 locality 与 leverage 解释收益，以及 tests 如何改善
-- **Verification impact** - 受影响 assemblies，以及 refactor 所需的 faithful runtime、Editor、scene、prefab、UI、asset 或 deterministic behavior evidence
-- **Before / After diagram** - side-by-side，自绘，说明 shallowness 与 deepening
-- **Recommendation strength** - `Strong`、`Worth exploring`、`Speculative` 之一，渲染为 badge
+- **涉及文件** - 涉及哪些 files/modules
+- **问题** - 当前 architecture 为什么造成 friction
+- **解决方案** - 会改变什么，用直白的简体中文描述
+- **收益** - 用 locality 与 leverage 解释收益，以及 tests 如何改善
+- **验证影响** - 受影响 assemblies，以及 refactor 所需的 faithful runtime、Editor、scene、prefab、UI、asset 或 deterministic behavior evidence
+- **重构前 / 重构后图** - side-by-side，自绘，说明 shallowness 与 deepening
+- **推荐强度** - `强`、`值得探索`、`推测性` 之一，渲染为 badge
 
-Report 末尾包含 **Top recommendation** section：你会先处理哪个 candidate，以及为什么。
+Report 末尾包含 **首要推荐** section：你会先处理哪个 candidate，以及为什么。
 
 **用 `CONTEXT.md` vocabulary 表达 domain，用 `/codebase-design` vocabulary 表达 architecture。** 如果 `CONTEXT.md` 定义了 "Order"，就说 "Order intake module"，不要说 "FooBarHandler"，也不要说 "Order service"。
 
@@ -62,7 +62,7 @@ Report 末尾包含 **Top recommendation** section：你会先处理哪个 candi
 
 完整 HTML scaffold、diagram patterns 和 styling guidance 见 [HTML-REPORT.md](HTML-REPORT.md)。
 
-现在不要提出 interfaces。写完文件后问用户："Which of these would you like to explore?"
+现在不要提出 interfaces。写完文件后问用户："你想探索其中哪一个？"
 
 ### 3. Grilling loop
 
