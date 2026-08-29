@@ -22,4 +22,4 @@ Stars、存在时间和下载量都是判断时有用的信号，但都不是规
 
 ## Prior requests
 
-- #99 — "Add dex as an issue tracker backend"（dex 当时约 3 个月大，约 300 stars）
+- #99: "Add dex as an issue tracker backend"（dex 当时约 3 个月大，约 300 stars）

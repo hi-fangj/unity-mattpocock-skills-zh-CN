@@ -1,6 +1,6 @@
 ---
 name: setup-matt-pocock-skills
-description: 为此仓库配置 engineering skills——设置 issue tracker、triage labels、domain docs，以及 Unity 项目的 implementation/verification workflow。在首次使用其他 engineering skills 前运行一次。
+description: "为此仓库配置 engineering skills：设置 issue tracker、triage labels、domain docs，以及 Unity 项目的 implementation/verification workflow。在首次使用其他 engineering skills 前运行一次。"
 disable-model-invocation: true
 ---
 

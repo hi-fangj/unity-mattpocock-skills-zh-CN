@@ -15,4 +15,4 @@ Grilling 有意保持开放式。它的目标是持续深挖，直到 decision t
 
 ## Prior requests
 
-- #44 — "Codex just asked me 200 questions"
+- #44: "Codex just asked me 200 questions"

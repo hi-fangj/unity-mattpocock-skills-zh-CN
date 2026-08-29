@@ -12,4 +12,4 @@
 
 ## Prior requests
 
-- #106 — Feature request: verify/check mode for setup-matt-pocock-skills
+- #106: Feature request: verify/check mode for setup-matt-pocock-skills

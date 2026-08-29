@@ -1,15 +1,17 @@
 # In Progress
 
-仍在开发中的 skills。它们还没准备好发布——预期会有粗糙之处、破坏性变更和被放弃的实验。在它们毕业进入稳定 bucket 之前，它们被排除在 plugin 和顶层 README 之外。
+仍在开发中的 skills。它们还没准备好发布：预期会有粗糙之处、破坏性变更和被放弃的实验。在它们毕业进入稳定 bucket 之前，它们被排除在 plugin 和顶层 README 之外。
 
 ## User-invoked
 
-- **[loop-me](./loop-me/SKILL.md)** — 通过多个 sessions 把自己 grilling 成可实现的 workflow specs，使用当前目录作为 stateful workspace。User-invoked。
-- **[writing-beats](./writing-beats/SKILL.md)** — 以自选路径（choose-your-own-adventure）风格，把文章塑造成一段节拍旅程。选一个 starting beat，只写那个 beat，然后 pivot 到下一个，直到文章自然结束。
-- **[writing-fragments](./writing-fragments/SKILL.md)** — Grilling session，从你身上挖掘 fragments——异质的写作素材——并把它们追加到单一文档中，作为未来文章的 raw material。
-- **[writing-shape](./writing-shape/SKILL.md)** — 拿一份 raw material markdown 文件，一段一段地把它塑造成文章，并在每一步论证格式选择。
-- **[claude-handoff](./claude-handoff/SKILL.md)** — 把当前对话交接给一个全新的 background agent，让它立即接手工作，通过 `claude --bg` 以 handoff summary 作为种子。User-invoked。
-- **[setup-ts-deep-modules](./setup-ts-deep-modules/SKILL.md)** — 在 TypeScript repo 中接入 dependency-cruiser，让每个 package 成为 deep module——implementation 隐藏在 subfolders 中，只能通过其 entry-point files 访问，tests 则通过这些 entry points 来验证它。User-invoked。
+- **[loop-me](./loop-me/SKILL.md)**：通过多个 sessions 把自己 grilling 成可实现的 workflow specs，使用当前目录作为 stateful workspace。User-invoked。
+- **[writing-beats](./writing-beats/SKILL.md)**：以自选路径（choose-your-own-adventure）风格，把文章塑造成一段节拍旅程。选一个 starting beat，只写那个 beat，然后 pivot 到下一个，直到文章自然结束。
+- **[writing-fragments](./writing-fragments/SKILL.md)**：Grilling session，从你身上挖掘 fragments（异质的写作素材），并把它们追加到单一文档中，作为未来文章的 raw material。
+- **[writing-shape](./writing-shape/SKILL.md)**：拿一份 raw material markdown 文件，一段一段地把它塑造成文章，并在每一步论证格式选择。
+- **[claude-handoff](./claude-handoff/SKILL.md)**：把当前对话交接给一个全新的 background agent，让它立即接手工作，通过 `claude --bg` 以 handoff summary 作为种子。User-invoked。
+- **[setup-ts-deep-modules](./setup-ts-deep-modules/SKILL.md)**：在 TypeScript repo 中接入 dependency-cruiser，让每个 package 成为 deep module（implementation 隐藏在 subfolders 中，只能通过其 entry-point files 访问，tests 则通过这些 entry points 来验证它）。User-invoked。
+- **[implement-spec](./implement-spec/SKILL.md)**：拿到一份 spec 和它的 tickets，把它们推进成一个 PR。User-invoked。
+- **[retro](./retro/SKILL.md)**：对一次 coding session 做复盘，提出改进 agent environment 的建议。User-invoked。
 
 ## Model-invoked
 

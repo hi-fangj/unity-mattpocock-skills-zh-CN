@@ -1,12 +1,12 @@
 ---
 name: writing-fragments
-description: Writing, explore——挖掘原始 fragments，暂不施加任何结构。
+description: "Writing, explore：挖掘原始 fragments，暂不施加任何结构。"
 disable-model-invocation: true
 ---
 
 <what-to-do>
 
-这是纯粹的 **explore**：在不承诺任何结构的前提下，拓宽可写内容的空间——承诺结构是 _exploit_，是另一个 skill 的工作。运行一个产出 fragments 的 grilling session，围绕用户想写的任何主题持续访谈。在这里强加 phases、outlines 或文章结构都不在范围内。
+这是纯粹的 **explore**：在不承诺任何结构的前提下，拓宽可写内容的空间；承诺结构是 _exploit_，是另一个 skill 的工作。运行一个产出 fragments 的 grilling session，围绕用户想写的任何主题持续访谈。在这里强加 phases、outlines 或文章结构都不在范围内。
 
 当对话双方产生 fragments 时，把它们追加到单一 markdown 文件。
 
@@ -33,9 +33,9 @@ Fragments 刻意保持异质。可能成为 fragment 的例子：
 - 一句 quote、一段 dialogue、一句 overheard line。
 - 一组凭感觉属于同一簇的 observations。
 - 一个 complaint、confession 或 punchline。
-- 一个 **leading word**——一个紧凑的隐喻或新造词，整篇文章都可以挂在它上面（一个为这个 idea 命名的术语，就像 _tracer bullets_ 或 _fog of war_ 为整个模式命名那样）。
+- 一个 **leading word**：一个紧凑的隐喻或新造词，整篇文章都可以挂在它上面（一个为这个 idea 命名的术语，就像 _tracer bullets_ 或 _fog of war_ 为整个模式命名那样）。
 
-在这些当中，leading word 是最值得落地的 fragment。它是 load-bearing 的：在 explore 阶段命名对的那一个，就会塑造之后的结构、transitions 和标题——在整个 exploit 阶段持续产生回报。当对话围绕一个反复出现的 idea 打转时，推动为它造一个词。
+在这些当中，leading word 是最值得落地的 fragment。它是 load-bearing 的：在 explore 阶段命名对的那一个，就会塑造之后的结构、transitions 和标题，在整个 exploit 阶段持续产生回报。当对话围绕一个反复出现的 idea 打转时，推动为它造一个词。
 
 Novelist's diary 是模型：多年无结构的 noticings，之后被挖掘成 raw material。Fragments 就是 noticings。
 

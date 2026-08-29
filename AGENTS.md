@@ -2,12 +2,12 @@
 
 Skills 按 bucket folder 组织在 `skills/` 下：
 
-- `engineering/` - 日常代码工作
-- `productivity/` - 日常非代码工作流工具
-- `misc/` - 保留但很少使用
-- `in-progress/` - 仍在开发，暂不推广
-- `personal/` - 绑定我自己的设置，不推广
-- `deprecated/` - 不再使用
+- `engineering/`：日常代码工作
+- `productivity/`：日常非代码工作流工具
+- `misc/`：保留但很少使用
+- `in-progress/`：仍在开发，暂不推广
+- `personal/`：绑定我自己的设置，不推广
+- `deprecated/`：不再使用
 
 `engineering/`、`productivity/` 或 `misc/` 中的每个 skill，都必须在顶层 `README.md` 中有引用，并在 `.claude-plugin/plugin.json` 中有条目。`personal/` 和 `deprecated/` 中的 skills 不得出现在这两个位置。
 `in-progress/` 中的 skills 在毕业到稳定 bucket 前，必须留在顶层 `README.md` 和 `.claude-plugin/plugin.json` 之外。
@@ -23,3 +23,5 @@ Skills 按 bucket folder 组织在 `skills/` 下：
 ## 翻译刷新
 
 从 `mattpocock/skills` 刷新上游内容时，改文件前先使用 `.skills/translate-skill/SKILL.md`。本仓库采用 skill-guided content localization，不做 Git fork-sync：保留简体中文 Unity 适配身份，安装命令保持指向 `hi-fangj/unity-mattpocock-skills-zh-CN`，不要导入上游 repository-management state，也不要覆盖本地 `unity-development` 与各 skill 的 `UNITY.md` branches。
+
+全仓 prose（`SKILL.md` 文件、docs、`README.md`、ADR、changesets、代码注释）不使用 em-dash（—）。句子需要停顿或引出时，按语义改用逗号、冒号、句号、括号或连词重写，绝不做机械的字符替换。

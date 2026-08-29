@@ -4,8 +4,8 @@
 
 ## User-invoked
 
-- [edit-article](./edit-article/SKILL.md) — 编辑并改进文章草稿。
+- [edit-article](./edit-article/SKILL.md)：编辑并改进文章草稿。
 
 ## Model-invoked
 
-- [obsidian-vault](./obsidian-vault/SKILL.md) — 管理个人 Obsidian vault。
+- [obsidian-vault](./obsidian-vault/SKILL.md)：管理个人 Obsidian vault。

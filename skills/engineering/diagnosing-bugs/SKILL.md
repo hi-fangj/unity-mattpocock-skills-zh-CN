@@ -13,17 +13,17 @@ description: 面向棘手缺陷和性能回退的诊断循环。适用于用户�
 
 ## Redact
 
-这个 skill 会展示 commands、outputs 和 captured artifacts。**先 redact 每一个 secret**——用 `<REDACTED>` 写在它原本的位置。构建 loop 时使用 env vars，让 credential 留在 environment 里而不是留在你展示的内容中。Captured artifacts 带有 auth headers：只引用承载 signal 的那些行。
+这个 skill 会展示 commands、outputs 和 captured artifacts。**先 redact 每一个 secret**：用 `<REDACTED>` 写在它原本的位置。构建 loop 时使用 env vars，让 credential 留在 environment 里而不是留在你展示的内容中。Captured artifacts 带有 auth headers：只引用承载 signal 的那些行。
 
 如果 redacted 后的 output 不足以诊断 bug，就明确说明并询问用户。
 
-## Phase 1 - Build a feedback loop
+## Phase 1: Build a feedback loop
 
 **这就是这个 skill 的核心。** 其他所有内容都是机械步骤。如果你拥有一个针对该 bug 的 **tight** pass/fail signal，即它会在 _这个_ bug 上变红，你就能找到原因；bisection、hypothesis-testing 和 instrumentation 都只是消费这个 signal。没有它，盯着代码看多久都救不了你。
 
 在这里投入不成比例的精力。**要强硬、要有创造力、拒绝放弃。**
 
-### Ways to construct one - try them in roughly this order
+### Ways to construct one, in roughly this order
 
 1. **Failing test**，放在能触达 bug 的 seam 上：unit、integration、e2e 都可以。
 2. **Curl / HTTP script**，打到运行中的 dev server。
@@ -56,18 +56,18 @@ Tight loop 是环境允许的最快 faithful loop。Pure code 最好是秒级；
 
 停下来并明确说明。列出你尝试过什么。向用户请求：(a) 能复现的环境访问权限，(b) 经过 redaction 的 trace、log dump、profiler capture、replay 或带 timestamps 的 recording，或 (c) 添加临时 instrumentation 的许可。只有获得能确认或推翻 symptom 的 bounded scenario/artifact 后才继续。
 
-### Completion criterion - a tight loop that goes red
+### Completion criterion: a tight loop that goes red
 
-Phase 1 完成条件：loop **tight** 且 **red-capable**。你能指出**一个 command**——一个 script path、test invocation 或 curl——你已经**至少执行过一次**（展示 invocation 和它的 output，redacted），且它满足：
+Phase 1 完成条件：loop **tight** 且 **red-capable**。你能指出**一个 command**（一个 script path、test invocation 或 curl），你已经**至少执行过一次**（展示 invocation 和它的 output，redacted），且它满足：
 
-- [ ] **Red-capable** - 它驱动真实 bug code path，并断言 **用户的 exact symptom**，因此能在该 bug 上变红、修复后变绿。不是 "runs without erroring"，而是必须能 _catch this specific bug_。
-- [ ] **Deterministic** - 每次运行 verdict 相同（flaky bugs：按上文固定到高复现率）。
-- [ ] **Bounded** - setup、inputs、observation point 与 verdict 都明确。
-- [ ] **Repeatable** - agent 或 human 能重新运行相同 sequence，并捕获可比较 evidence。
+- [ ] **Red-capable**：它驱动真实 bug code path，并断言 **用户的 exact symptom**，因此能在该 bug 上变红、修复后变绿。不是 "runs without erroring"，而是必须能 _catch this specific bug_。
+- [ ] **Deterministic**：每次运行 verdict 相同（flaky bugs：按上文固定到高复现率）。
+- [ ] **Bounded**：setup、inputs、observation point 与 verdict 都明确。
+- [ ] **Repeatable**：agent 或 human 能重新运行相同 sequence，并捕获可比较 evidence。
 
 如果你发现自己在 loop 存在前就读代码构建理论，停下。没有 red-capable loop，就没有 Phase 2。
 
-## Phase 2 - Reproduce + minimise
+## Phase 2: Reproduce + minimise
 
 运行 loop。看它变红，也就是 bug 出现。
 
@@ -87,7 +87,7 @@ Phase 1 完成条件：loop **tight** 且 **red-capable**。你能指出**一个
 
 在 reproduce 并 minimise 之前不要继续。
 
-## Phase 3 - Hypothesise
+## Phase 3: Hypothesise
 
 在测试任何假设前，生成 **3-5 个 ranked hypotheses**。单假设会锚定在第一个看似合理的想法上。
 
@@ -99,7 +99,7 @@ Phase 1 完成条件：loop **tight** 且 **red-capable**。你能指出**一个
 
 **测试前把 ranked list 展示给用户。** 用户常常有 domain knowledge，可以立即重排（"we just deployed a change to #3"），或知道哪些 hypotheses 已被排除。便宜 checkpoint，大幅省时。不要因此阻塞；如果用户 AFK，就按你的排序继续。
 
-## Phase 4 - Instrument
+## Phase 4: Instrument
 
 每个 probe 都必须映射到 Phase 3 的某个具体 prediction。**一次只改变一个变量。**
 
@@ -113,7 +113,7 @@ Tool preference：
 
 **Perf branch。** 对 performance regressions，logs 通常不对。改为先建立 baseline measurement（timing harness、`performance.now()`、profiler、query plan），然后 bisect。先 measure，再 fix。
 
-## Phase 5 - Fix + regression test
+## Phase 5: Fix + regression test
 
 在 fix 前先捕获 regression evidence。存在 correct seam 时优先写 failing test；否则保留 minimised replay、trace、runtime scenario、profiler capture 或 structured manual sequence。
 
@@ -131,7 +131,7 @@ Correct seam 是 test 能以 call site 中真实发生的方式触发 **real bug
 
 如果不存在 correct test seam，只能在 minimised non-test evidence 已经 red 后应用 fix，然后重跑 minimised 与 original scenarios。记录 test 为什么会误导或超出 scope。
 
-## Phase 6 - Cleanup + post-mortem
+## Phase 6: Cleanup
 
 声明完成前必须做：
 
@@ -140,5 +140,3 @@ Correct seam 是 test 能以 call site 中真实发生的方式触发 **real bug
 - [ ] 所有 `[DEBUG-...]` instrumentation 已移除（grep prefix）
 - [ ] Throwaway prototypes 已删除（或移动到明确标记的 debug location）
 - [ ] 正确 hypothesis 已写进 commit / PR message，让下一个 debugger 能学习
-
-**然后问：什么本可以预防这个 bug？** 如果答案涉及 architecture change（没有好 test seam、callers 缠绕、hidden coupling），带着具体细节交给 `/improve-codebase-architecture` skill。这个建议要在 fix 之后提出，不要在之前提出；现在你比开始时知道得更多。

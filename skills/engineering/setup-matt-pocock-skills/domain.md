@@ -5,8 +5,8 @@ Engineering skills 探索 codebase 时，应如何消费这个 repo 的 domain d
 ## Before exploring, read these
 
 - repo 根目录的 **`CONTEXT.md`**，或
-- repo 根目录的 **`CONTEXT-MAP.md`**（如果存在）— 它指向每个 context 的一个 `CONTEXT.md`。读取与当前话题相关的每个文件。
-- **`docs/adr/`** — 读取与你即将处理区域相关的 ADRs。在 multi-context repos 中，也检查 `src/<context>/docs/adr/` 中的 context-scoped decisions。
+- repo 根目录的 **`CONTEXT-MAP.md`**（如果存在）：它指向每个 context 的一个 `CONTEXT.md`。读取与当前话题相关的每个文件。
+- **`docs/adr/`**：读取与你即将处理区域相关的 ADRs。在 multi-context repos 中，也检查 `src/<context>/docs/adr/` 中的 context-scoped decisions。
 
 如果这些文件不存在，**静默继续**。不要标记缺失；不要提前建议创建。`/domain-modeling` skill（经由 `/grill-with-docs` 和 `/improve-codebase-architecture` 调用）会在 terms 或 decisions 实际被解决时懒创建它们。
 
@@ -48,4 +48,4 @@ Multi-context repo（根目录存在 `CONTEXT-MAP.md`）：
 
 如果你的输出与现有 ADR 矛盾，明确指出，而不是静默覆盖：
 
-> _Contradicts ADR-0007 (event-sourced orders) — but worth reopening because…_
+> _Contradicts ADR-0007 (event-sourced orders), but worth reopening because…_

@@ -49,9 +49,9 @@ Output format:
 
 每个 design 展示：
 
-1. **Interface signature** — types、methods、params
-2. **Usage examples** — callers 在实践中如何使用
-3. **What it hides** — 保持在内部的 complexity
+1. **Interface signature**：types、methods、params
+2. **Usage examples**：callers 在实践中如何使用
+3. **What it hides**：保持在内部的 complexity
 
 顺序展示 designs，让用户能在比较前吸收每个 approach。
 

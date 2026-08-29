@@ -55,7 +55,7 @@ Diagrams 承担主要信息量。Prose 要稀疏、直白，并自然使用 `/co
 
 ## Diagram patterns
 
-选择适合 candidate 的 pattern，可以混用。不要让每个 diagram 都长得一样——多样性本身就是目的的一部分。
+选择适合 candidate 的 pattern，可以混用。不要让每个 diagram 都长得一样：多样性本身就是目的的一部分。
 
 ### Mermaid graph（dependencies / call flow 的主力）
 
@@ -76,7 +76,7 @@ Diagrams 承担主要信息量。Prose 要稀疏、直白，并自然使用 `/co
 
 ### Hand-built boxes-and-arrows（当 Mermaid 的 layout 妨碍表达时）
 
-Modules 用带 border 和 label 的 `<div>`；arrows 用绝对定位在 relative container 上的 inline SVG `<line>` 或 `<path>`。当你希望 "after" diagram 像一个 thick-bordered 的 deep module、internals 灰显时，就用这种方式——Mermaid 无法以合适的视觉分量渲染出那种效果。
+Modules 用带 border 和 label 的 `<div>`；arrows 用绝对定位在 relative container 上的 inline SVG `<line>` 或 `<path>`。当你希望 "after" diagram 像一个 thick-bordered 的 deep module、internals 灰显时，就用这种方式：Mermaid 无法以合适的视觉分量渲染出那种效果。
 
 ### Cross-section（适合 layered shallowness）
 
@@ -112,7 +112,7 @@ Before：把 function calls tree 渲染为 nested boxes。After：把同一棵 t
 
 合适的措辞：
 
-- "Order intake module 很 shallow——interface 几乎和 implementation 一样宽。"
+- "Order intake module 很 shallow：interface 几乎和 implementation 一样宽。"
 - "Pricing 跨过 seam 泄漏出来。"
 - "深化：一个 interface，一个测试落点。"
 - "两个 adapter 才证明 seam 成立：production 用 HTTP，tests 用 in-memory。"

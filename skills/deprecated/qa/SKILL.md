@@ -110,18 +110,18 @@ Issues 必须 **durable**，即 major refactors 后仍有意义。从用户视�
 
 创建 breakdown 时：
 
-- **Prefer many thin issues over few thick ones** — 每个都应能独立 fix 和 verify
-- **Mark blocking relationships honestly** — 如果 B 确实必须等 A 才能测试，就说明。如果独立，两个都写 “None — can start immediately”
+- **Prefer many thin issues over few thick ones**：每个都应能独立 fix 和 verify
+- **Mark blocking relationships honestly**：如果 B 确实必须等 A 才能测试，就说明。如果独立，两个都写 “None; can start immediately”
 - **Create issues in dependency order**，这样可以在 “Blocked by” 中引用真实 issue numbers
-- **Maximize parallelism** — 目标是让多人（或 agents）能同时领取不同 issues
+- **Maximize parallelism**：目标是让多人（或 agents）能同时领取不同 issues
 
 #### Rules for all issue bodies
 
-- **No file paths or line numbers** — 它们会过时
+- **No file paths or line numbers**：它们会过时
 - **Use the project's domain language**（如果存在，检查 UBIQUITOUS_LANGUAGE.md）
-- **Describe behaviors, not code** — 写 “the sync service fails to apply the patch”，不要写 “applyPatch() throws on line 42”
-- **Reproduction steps are mandatory** — 如果无法确定，询问用户
-- **Keep it concise** — developer 应能 30 秒内读完 issue
+- **Describe behaviors, not code**：写 “the sync service fails to apply the patch”，不要写 “applyPatch() throws on line 42”
+- **Reproduction steps are mandatory**：如果无法确定，询问用户
+- **Keep it concise**：developer 应能 30 秒内读完 issue
 
 file 后，打印所有 issue URLs（并总结 blocking relationships），然后问：“Next issue, or are we done?”
 

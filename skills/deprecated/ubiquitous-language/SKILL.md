@@ -78,7 +78,7 @@ disable-model-invocation: true
 
 > **Dev:** "So **sync-in** still creates a **bundle** and unpacks it?"
 
-> **Domain expert:** "Exactly. The **sync service** doesn't know which layer it's talking to. It calls `exec` and `copyIn` — the **filesystem layer** just runs those as local shell commands."
+> **Domain expert:** "Exactly. The **sync service** doesn't know which layer it's talking to. It calls `exec` and `copyIn`：the **filesystem layer** just runs those as local shell commands."
 
 </example>
 
