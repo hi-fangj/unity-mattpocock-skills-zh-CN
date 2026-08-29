@@ -19,7 +19,7 @@
 
 ### 同步日志
 
-- 2026-08-29: Synced upstream `mattpocock/skills@6654f6b`，local commit 待提交后回填。全仓 prose 移除 em-dash 并把该政策写入 `CLAUDE.md`/`AGENTS.md`；统一跨 skill 调用为 `Call the Skill tool` 措辞，并改为转告人类运行 user-invoked skills（`/setup-matt-pocock-skills` 等），删除 `diagnosing-bugs` Phase 6 对 `/improve-codebase-architecture` 的交接；`grilling` 轮内问题以分隔线隔开；`domain-modeling` 触发条件放宽到术语讨论与 CONTEXT.md/ADR 编辑；`wait-what` 支持经 `CONTEXT-MAP.md` 定位多 context；新增 in-progress skills `implement-spec` 与 `retro`；YAML `description` 引号修复；README、docs 与各 bucket 索引同步刷新。
+- 2026-08-29: Synced upstream `mattpocock/skills@6654f6b`，local commit `758bf2c`。全仓 prose 移除 em-dash 并把该政策写入 `CLAUDE.md`/`AGENTS.md`；统一跨 skill 调用为 `Call the Skill tool` 措辞，并改为转告人类运行 user-invoked skills（`/setup-matt-pocock-skills` 等），删除 `diagnosing-bugs` Phase 6 对 `/improve-codebase-architecture` 的交接；`grilling` 轮内问题以分隔线隔开；`domain-modeling` 触发条件放宽到术语讨论与 CONTEXT.md/ADR 编辑；`wait-what` 支持经 `CONTEXT-MAP.md` 定位多 context；新增 in-progress skills `implement-spec` 与 `retro`；YAML `description` 引号修复；README、docs 与各 bucket 索引同步刷新。
 
 - 2026-08-11: Synced upstream `mattpocock/skills@84fdeff`，local commit `d525a18`。完整刷新 engineering/productivity 技能集：重译 `grilling`（rounds + frontier）、`prototype`（shareable HTML logic demo，保留 UNITY.md）、`diagnosing-bugs`（Redact）与 `wizard`（迁移到 engineering 并改为 model-invoked）；迁移 `to-questionnaire` 到 productivity；新增 `wait-what`、`writing-for-agents`（含 SKILL-MECHANICS）及 `ask-matt/PHASE-BOUNDARIES.md`；删除上游已移除的 `writing-great-skills` 与 `batch-grill-me`；同步其余 11 个 skill 的 spec 术语与措辞更新，并刷新全部索引。
 
