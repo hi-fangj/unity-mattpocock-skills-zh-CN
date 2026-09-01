@@ -336,8 +336,10 @@ AI 时代也是一样。你和 agent 之间存在沟通缺口。修复方式是�
 
 **解决方式**是使用：
 
+- [`/align-core-terms`](./skills/productivity/align-core-terms/SKILL.md) - 在 grilling 前先统一核心术语，避免混乱口述被误解
 - [`/grill-me`](./skills/productivity/grill-me/SKILL.md) - 用于非代码场景
 - [`/grill-with-docs`](./skills/engineering/grill-with-docs/SKILL.md) - 与 [`/grill-me`](./skills/productivity/grill-me/SKILL.md) 类似，但会加入更多文档能力（见下文）
+- [`/pre-implementation-conflict-check`](./skills/engineering/pre-implementation-conflict-check/SKILL.md) - 在代码生成前对照需求与项目规则、约束、ADR 和术语文档，先解决冲突
 
 这些是我最常用的 skills。它们帮助你在开始前和 agent 对齐，并深入思考你要做的变更。每次想做变更时都值得使用。
 
@@ -432,6 +434,7 @@ AI 时代也是一样。你和 agent 之间存在沟通缺口。修复方式是�
 
 - **[ask-matt](./skills/engineering/ask-matt/SKILL.md)**：询问当前情境适合哪个 skill 或 flow；它是本仓库 user-invoked skills 的 router。
 - **[grill-with-docs](./skills/engineering/grill-with-docs/SKILL.md)**：追问式访谈，同时构建项目的 domain model、打磨术语，并内联更新 `CONTEXT.md` 与 ADRs。
+- **[pre-implementation-conflict-check](./skills/engineering/pre-implementation-conflict-check/SKILL.md)**：在代码生成前对照需求确认文档与项目规则、约束、ADR 和术语文档，逐项解决冲突。
 - **[triage](./skills/engineering/triage/SKILL.md)**：通过 triage roles state machine 推进 issues。
 - **[improve-codebase-architecture](./skills/engineering/improve-codebase-architecture/SKILL.md)**：扫描 codebase 中的 deepening opportunities，生成可视化 HTML report，然后围绕你选中的候选项继续 grilling。
 - **[setup-matt-pocock-skills](./skills/engineering/setup-matt-pocock-skills/SKILL.md)**：配置 issue tracker、triage labels、domain docs，以及适用时的 Unity development workflow。每个 repo 运行一次。
@@ -459,6 +462,7 @@ AI 时代也是一样。你和 agent 之间存在沟通缺口。修复方式是�
 
 **User-invoked**
 
+- **[align-core-terms](./skills/productivity/align-core-terms/SKILL.md)**：在 Grill 前确认核心术语的定义、范围与歧义。
 - **[grill-me](./skills/productivity/grill-me/SKILL.md)**：围绕计划或设计持续追问，直到 decision tree 的每个分支都被解决。
 - **[handoff](./skills/productivity/handoff/SKILL.md)**：把当前对话压缩成 handoff document，让另一个 agent 可以继续。
 - **[teach](./skills/productivity/teach/SKILL.md)**：使用当前目录作为 stateful teaching workspace，在多个 sessions 中教用户一个新 skill 或概念。
@@ -468,7 +472,7 @@ AI 时代也是一样。你和 agent 之间存在沟通缺口。修复方式是�
 
 **Model-invoked**
 
-- **[grilling](./skills/productivity/grilling/SKILL.md)**：围绕计划、decision 或 idea 按轮次持续访谈用户，直到 design tree 的每个分支都被解决。它是 `grill-me` 和 `grill-with-docs` 背后的 reusable loop。
+- **[grilling](./skills/productivity/grilling/SKILL.md)**：围绕计划、decision 或 idea 按轮次持续访谈用户，并用 30+20 检查点避免无限发散。它是 `grill-me` 和 `grill-with-docs` 背后的 reusable loop。
 
 #### Misc
 

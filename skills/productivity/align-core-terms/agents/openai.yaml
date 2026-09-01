@@ -1,0 +1,5 @@
+interface:
+  display_name: "统一核心术语"
+  short_description: "在 Grill 前确认定义、范围与歧义"
+policy:
+  allow_implicit_invocation: false

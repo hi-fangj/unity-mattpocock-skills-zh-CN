@@ -1,0 +1,5 @@
+interface:
+  display_name: "实施前冲突检查"
+  short_description: "对照需求与项目规则，解决实现前冲突"
+policy:
+  allow_implicit_invocation: false

@@ -6,6 +6,7 @@
 
 只有在你显式输入名称时才能调用（Claude Code：`disable-model-invocation: true`；Codex：`agents/openai.yaml` 中的 `policy.allow_implicit_invocation: false`）。
 
+- **[align-core-terms](./align-core-terms/SKILL.md)**：在 grilling 之前逐项确认核心术语的定义、范围与歧义。
 - **[grill-me](./grill-me/SKILL.md)**：围绕计划或设计进行持续追问，直到 decision tree 的每个分支都被解决。
 - **[handoff](./handoff/SKILL.md)**：把当前对话压缩成 handoff document，让另一个 agent 可以继续。
 - **[teach](./teach/SKILL.md)**：使用当前目录作为 stateful teaching workspace，在多个 sessions 中教用户一个新 skill 或概念。
@@ -17,4 +18,4 @@
 
 模型或用户都可以调用（description 包含足够丰富的触发措辞，方便模型自动找到它们）。
 
-- **[grilling](./grilling/SKILL.md)**：围绕计划、decision 或 idea 按轮次持续访谈用户，直到 design tree 的每个分支都被解决。
+- **[grilling](./grilling/SKILL.md)**：围绕计划、decision 或 idea 按轮次持续访谈用户，并用 30+20 检查点避免无限发散。

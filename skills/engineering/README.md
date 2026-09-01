@@ -8,6 +8,7 @@
 
 - **[ask-matt](./ask-matt/SKILL.md)**：询问当前情境适合哪个 skill 或 flow；它是本仓库 user-invoked skills 的 router。
 - **[grill-with-docs](./grill-with-docs/SKILL.md)**：追问式访谈，同时构建项目的 domain model、打磨术语，并内联更新 `CONTEXT.md` 与 ADRs。
+- **[pre-implementation-conflict-check](./pre-implementation-conflict-check/SKILL.md)**：在代码生成前对照需求确认文档与项目规则、约束、ADR 和术语文档，逐项解决冲突。
 - **[triage](./triage/SKILL.md)**：通过 triage roles state machine 推进 issues。
 - **[improve-codebase-architecture](./improve-codebase-architecture/SKILL.md)**：扫描 codebase 中的 deepening opportunities，生成可视化 HTML report，然后围绕你选中的候选项继续 grilling。
 - **[setup-matt-pocock-skills](./setup-matt-pocock-skills/SKILL.md)**：为 engineering skills 配置本仓库需要的 issue tracker、triage labels、domain docs，以及适用时的 Unity workflow。每个 repo 运行一次。
