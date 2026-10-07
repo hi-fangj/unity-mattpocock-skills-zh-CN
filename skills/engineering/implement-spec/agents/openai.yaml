@@ -1,0 +1,5 @@
+interface:
+  display_name: "实现 Spec"
+  short_description: "把 /to-spec 和 /to-tickets 的结果实现为代码。"
+policy:
+  allow_implicit_invocation: false

@@ -31,4 +31,4 @@ npx skills update unity-development
 
 ## Where it fits
 
-在 Unity repository 中，它是 `/ask-matt` 与项目 `AGENTS.md` 下层的 execution reference，并限定 `/prototype`、`/diagnosing-bugs`、`/code-review`、`/improve-codebase-architecture` 与 `/resolving-merge-conflicts` 的 Unity branches。它替换通用 `/implement` 和 `/tdd` 的验证假设，但不改变这些 skills 的产品/流程职责。
+在 Unity repository 中，它是 `/ask-matt` 与项目 `AGENTS.md` 下层的 execution reference，并限定 `/prototype`、`/diagnosing-bugs`、`/code-review` 与 `/improve-codebase-architecture` 的 Unity branches。它替换通用 `/implement` 和 `/tdd` 的验证假设，但不改变这些 skills 的产品/流程职责。

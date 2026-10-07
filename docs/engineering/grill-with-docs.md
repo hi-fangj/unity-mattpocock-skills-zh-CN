@@ -14,7 +14,7 @@ npx skills update grill-with-docs
 
 `grill-with-docs` 围绕一个计划或设计，一次一个问题地持续追问你，直到你和 agent 达成共同的理解，并且它会在进行过程中把词汇和决策写下来。
 
-这场 grilling **会留下书面痕迹**。一次普通的访谈会打磨你的思考，然后在会话结束时蒸发殆尽；而这一个会在每个术语被敲定的那一刻就把它捕获进一份 `CONTEXT.md` glossary，并把那些艰难的、单向的决策记录为 ADRs。这份共识得以在对话之后存续，而不是只活在你的脑子里。
+这场 grilling **会留下书面痕迹**。一次普通的访谈会打磨你的思考，然后在会话结束时蒸发殆尽；而这一个会在每个术语被敲定的那一刻就把它捕获进一份 `GLOSSARY.md` glossary，并把那些艰难的、单向的决策记录为 ADRs。这份共识得以在对话之后存续，而不是只活在你的脑子里。
 
 ## When to reach for it
 
@@ -24,7 +24,7 @@ npx skills update grill-with-docs
 
 ## Prerequisites
 
-这个 skill 是有状态的：它在 grilling 的同时写入你的 repo。已敲定的术语落入根目录的一份 `CONTEXT.md` glossary（或者，如果一个 `CONTEXT-MAP.md` 标记了多 context 仓库，则落入相关 context 的 `CONTEXT.md`），而真正难以逆转的决策则作为 ADRs 落入 `docs/adr/` 之下。两者都是惰性创建的（在第一个术语或决策成形之前什么都不存在），所以你不需要事先搭建任何脚手架，但你确实需要身处一个可以安全写入这些文件的地方。
+这个 skill 是有状态的：它在 grilling 的同时写入你的 repo。已敲定的术语落入根目录的一份 `GLOSSARY.md` glossary（或者，如果一个 `GLOSSARY-MAP.md` 标记了多 context 仓库，则落入相关 context 的 `GLOSSARY.md`），而真正难以逆转的决策则作为 ADRs 落入 `docs/adr/` 之下。两者都是惰性创建的（在第一个术语或决策成形之前什么都不存在），所以你不需要事先搭建任何脚手架，但你确实需要身处一个可以安全写入这些文件的地方。
 
 ## The grill
 
@@ -35,7 +35,7 @@ npx skills update grill-with-docs
 ## It's working if
 
 - 它一次问一个问题并等待，而不是倾倒一份问卷。
-- 术语在被敲定的那一刻就写入 `CONTEXT.md`，用的是你项目自己的措辞。
+- 术语在被敲定的那一刻就写入 `GLOSSARY.md`，用的是你项目自己的措辞。
 - 在可能的地方，它深入 codebase 去回答它自己的问题。
 - ADR 保持稀少：你不会被迫去橡皮图章式地批准那些可逆的选择。
 
@@ -44,7 +44,7 @@ npx skills update grill-with-docs
 `grill-with-docs` 是 main build chain 的开场步骤：
 
 ```txt
-grill-with-docs → to-spec → to-tickets → implement → code-review
+grill-with-docs → to-spec → to-tickets → implement → code-review → retro
 ```
 
 它排在最前，在任何东西被写成 spec 之前：它产出共同的理解和敲定的词汇，[to-spec](https://aihero.dev/skills-to-spec) 随后将其合成为一份 spec，而无需重新访谈你。它亲近的邻居是 [grilling](https://aihero.dev/skills-grilling)（同一场访谈但不带文档），以及 [domain-modeling](https://aihero.dev/skills-domain-modeling)（它所驱动的那套 glossary-and-ADR 纪律）。当你不确定哪个 skill 或 flow 契合时，[ask-matt](https://aihero.dev/skills-ask-matt) 会为你路由。

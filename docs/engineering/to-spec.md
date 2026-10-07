@@ -53,7 +53,7 @@ npx skills update to-spec
 `to-spec` 是 main build chain 中的一个步骤：
 
 ```txt
-grill-with-docs → to-spec → to-tickets → implement → code-review
+grill-with-docs → to-spec → to-tickets → implement → code-review → retro
 ```
 
 在 plan 和 domain language 解决之后、在把工作拆成 implementation tickets 之前使用它。它的关键邻居是 [grill-with-docs](https://aihero.dev/skills-grill-with-docs)（它打磨 context 使 spec 精确），以及 [to-tickets](https://aihero.dev/skills-to-tickets)（它把 spec 变成一组供 [implement](https://aihero.dev/skills-implement) 构建的 tickets）。当你不确定哪个 skill 或 flow 合适时，[ask-matt](https://aihero.dev/skills-ask-matt) 会为你引路。

@@ -37,4 +37,4 @@ npx skills update diagnosing-bugs
 
 ## Where it fits
 
-`diagnosing-bugs` 是一个随时可调用的 standalone：你在某些东西坏掉的那一刻进入它，并在修复及其 regression test 就位后退出。它的 post-mortem 会在真正的发现是没有一条好的 seam 来锁住这个 bug 时，移交给 [improve-codebase-architecture](https://aihero.dev/skills-improve-codebase-architecture)，问题在于代码，而不在于 bug。当你不确定哪个 skill 契合时，[ask-matt](https://aihero.dev/skills-ask-matt) 会为你路由。
+`diagnosing-bugs` 是一个随时可调用的 standalone：你在某些东西坏掉的那一刻进入它，并在修复及其 regression test 就位后退出。修复落地后，在同一个 session 运行 [retro](https://aihero.dev/skills-retro)，问是什么本来可以阻止这个 bug；skill 从不自己发起这个调用，因为 `retro` 是 user-invoked 的。当你不确定哪个 skill 契合时，[ask-matt](https://aihero.dev/skills-ask-matt) 会为你路由。

@@ -7,7 +7,7 @@ description: 测试驱动开发。适用于用户想用先写测试的方式构�
 
 TDD 是 red -> green loop。这个 skill 是让该 loop 产出值得保留的 tests 的 reference：什么是好 test、tests 应该放在哪里、anti-patterns，以及 loop 的规则。每个 cycle 前和 cycle 中都要参考这些内容，而不是事后才看。
 
-探索 codebase 时，读取 `CONTEXT.md`（如果存在），让 test names 和 interface vocabulary 与项目 domain language 对齐，并尊重你触碰区域的 ADRs。
+探索 codebase 时，读取 `GLOSSARY.md`（如果存在），让 test names 和 interface vocabulary 与项目 domain language 对齐，并尊重你触碰区域的 ADRs。
 
 ## What a good test is
 
@@ -21,7 +21,7 @@ Tests 应通过 public interfaces 验证 behavior，而不是 implementation det
 
 **只测试预先认可的 seams。** 写任何 test 前，先写下要测试的 seams 并与用户确认。未经确认的 seam 不写 test。你无法测试所有东西；提前认可 seams，才能把测试精力放在 critical paths 和复杂 logic 上，而不是每个 edge case。
 
-询问："What's the public interface, and which seams should we test?"
+询问："What's the public interface, and which seams should we test?" 对每个提议的 seam 写一行说明：它能抓住什么、会漏掉什么。
 
 当该 interface 的 shape 本身存疑（module 应该多深、seam 应该在哪、interface 应该暴露什么），调用 Skill tool 运行 "codebase-design" 获取词汇。它是 module、interface、depth、seam、adapter、leverage 和 locality 这些术语的 shared source；它是用来查阅的 reference，不是要运行的 session。
 

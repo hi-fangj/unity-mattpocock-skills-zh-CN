@@ -41,7 +41,7 @@ npx skills update code-review
 `code-review` 是 main build chain 尾部的 review 步骤：
 
 ```txt
-grill-with-docs → to-spec → to-tickets → implement → code-review
+grill-with-docs → to-spec → to-tickets → implement → code-review → retro
 ```
 
-它最接近的邻居是 [implement](https://aihero.dev/skills-implement)，后者驱动构建并在提交前把它作为自己的 review 流程来调用；往上游，它所核对的 spec 由 [to-spec](https://aihero.dev/skills-to-spec) 和 [to-tickets](https://aihero.dev/skills-to-tickets) 产出。当你不确定哪个 skill 或 flow 契合时，[ask-matt](https://aihero.dev/skills-ask-matt) 会为你路由。
+它最接近的邻居是 [implement](https://aihero.dev/skills-implement)，后者驱动构建并在提交前把它作为自己的 review 流程来调用；[implement-spec](https://aihero.dev/skills-implement-spec) 在整条 integration branch 上调用它一次。它之后的 [retro](https://aihero.dev/skills-retro) 会调优它：当 session 显示 review 漏掉了一类错误时，`retro` 提出 Standards 轴线随后会读取的 check 或 `CODING_STANDARDS.md` 规则。[pr](https://aihero.dev/skills-pr) 在被审查的工作发布时撰写 PR body。往上游，它所核对的 spec 由 [to-spec](https://aihero.dev/skills-to-spec) 和 [to-tickets](https://aihero.dev/skills-to-tickets) 产出。当你不确定哪个 skill 或 flow 契合时，[ask-matt](https://aihero.dev/skills-ask-matt) 会为你路由。

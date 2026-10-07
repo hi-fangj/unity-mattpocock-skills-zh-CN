@@ -7,7 +7,7 @@
 只有在你显式输入名称时才能调用（Claude Code：`disable-model-invocation: true`；Codex：`agents/openai.yaml` 中的 `policy.allow_implicit_invocation: false`）。
 
 - **[ask-matt](./ask-matt/SKILL.md)**：询问当前情境适合哪个 skill 或 flow；它是本仓库 user-invoked skills 的 router。
-- **[grill-with-docs](./grill-with-docs/SKILL.md)**：追问式访谈，同时构建项目的 domain model、打磨术语，并内联更新 `CONTEXT.md` 与 ADRs。
+- **[grill-with-docs](./grill-with-docs/SKILL.md)**：追问式访谈，同时构建项目的 domain model、打磨术语，并内联更新 `GLOSSARY.md` 与 ADRs。
 - **[pre-implementation-conflict-check](./pre-implementation-conflict-check/SKILL.md)**：在代码生成前对照需求确认文档与项目规则、约束、ADR 和术语文档，逐项解决冲突。
 - **[triage](./triage/SKILL.md)**：通过 triage roles state machine 推进 issues。
 - **[improve-codebase-architecture](./improve-codebase-architecture/SKILL.md)**：扫描 codebase 中的 deepening opportunities，生成可视化 HTML report，然后围绕你选中的候选项继续 grilling。
@@ -15,7 +15,9 @@
 - **[to-spec](./to-spec/SKILL.md)**：把当前对话整理成 spec 并发布到 issue tracker。
 - **[to-tickets](./to-tickets/SKILL.md)**：把 plan、spec 或 conversation 拆成 tracer-bullet tickets，每个 ticket 声明 blocking edges：本地文件中用文本表示，真实 tracker 上用 native blocking links。
 - **[implement](./implement/SKILL.md)**：基于 spec 或 ticket 集合实现一段工作，在预先认可的 seams 上驱动 `/tdd`，并在提交前以 `/code-review` 收尾。
+- **[implement-spec](./implement-spec/SKILL.md)**：在一条 integration branch 上实现整个 spec。把 tickets 当作 task graph 处理，跨就绪的 frontier 并行运行 implementer subagents，最后以 `/code-review` 收尾。
 - **[wayfinder](./wayfinder/SKILL.md)**：把超出单个 agent session 的大块工作规划成 issue tracker 上的 decision tickets 共享 map，逐一解决直到通往 destination 的路清晰。
+- **[retro](./retro/SKILL.md)**：在一次 session 结束后，对 coding agent 的环境（navigation、automated checks、coding standards、steering files、tooling）提出改进建议，按严重程度排序。
 
 ## Model-invoked
 
@@ -28,7 +30,8 @@
 - **[diagnosing-bugs](./diagnosing-bugs/SKILL.md)**：面向棘手 bug 和性能回退的纪律化诊断循环：reproduce -> minimise -> hypothesise -> instrument -> fix -> regression-test。
 - **[research](./research/SKILL.md)**：对照高可信 primary sources 调研问题，并把带引用的 findings 保存为 repo 中的 Markdown 文件，作为 background agent 运行。
 - **[tdd](./tdd/SKILL.md)**：使用 red-green-refactor 循环做 test-driven development；一次一个 vertical slice 地构建功能或修复 bug。
-- **[domain-modeling](./domain-modeling/SKILL.md)**：主动构建和打磨项目的 domain model：挑战术语、用场景做压力测试，并内联更新 `CONTEXT.md` 与 ADRs。
+- **[domain-modeling](./domain-modeling/SKILL.md)**：主动构建和打磨项目的 domain model：挑战术语、用场景做压力测试，并内联更新 `GLOSSARY.md` 与 ADRs。
 - **[codebase-design](./codebase-design/SKILL.md)**：用于设计 deep modules 的共享纪律和词汇：小 interface、清晰 seam、通过 interface 测试。
 - **[code-review](./code-review/SKILL.md)**：对固定点之后的 diff 做双轴 review：**Standards**（是否遵循 repo 的编码规范，外加 Fowler smell baseline？）和 **Spec**（是否忠实实现了源头的 issue/spec？），作为并行 sub-agents 运行。
-- **[resolving-merge-conflicts](./resolving-merge-conflicts/SKILL.md)**：逐 hunk 处理正在进行的 git merge 或 rebase conflict，按追溯到每一侧 primary source 的意图来解决，然后完成该操作：绝不 `--abort`。
+- **[pr](./pr/SKILL.md)**：PR body 应有的形态：以展示变更的最小可视化作为 summary，附上它确实可用的 before/after 证据，以及 merge-danger 判断（one-way 或 two-way door，外加 blast radius）。
+- **[wizard](./wizard/SKILL.md)**：生成一个交互式 bash wizard，引导人完成只有他们才能执行的步骤：provisioning infrastructure、设置 credentials 或 CI secrets、操作陌生第三方 dashboard，或运行一次性 migration 或 cutover。

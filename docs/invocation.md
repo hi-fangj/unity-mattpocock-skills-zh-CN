@@ -23,4 +23,4 @@ Skill tool 每次只接受一个 skill。需要两个 skills 的步骤就是两�
 
 ## 被动与主动的 domain 工作
 
-只是为了词汇而 _读取_ `CONTEXT.md`，是一条普通 prose pointer，不是 `domain-modeling` skill。只有主动构建和打磨 domain model 的纪律（挑战术语、构造 edge-case scenarios、写 ADRs、内联更新 `CONTEXT.md`）才是 `domain-modeling`。
+只是为了词汇而 _读取_ `GLOSSARY.md`，是一条普通 prose pointer，不是 `domain-modeling` skill。只有主动构建和打磨 domain model 的纪律（挑战术语、构造 edge-case scenarios、写 ADRs、内联更新 `GLOSSARY.md`）才是 `domain-modeling`。

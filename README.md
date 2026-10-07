@@ -9,7 +9,7 @@
 
 ## 关于这个中文版
 
-这是 [`mattpocock/skills`](https://github.com/mattpocock/skills) 的简体中文 Unity 适配版本，延续 [`vinvcn/mattpocock-skills-zh-CN`](https://github.com/vinvcn/mattpocock-skills-zh-CN) 的中文本地化工作。除翻译外，本 fork 增加了 Unity implementation/verification workflow，并让 review、diagnosis、architecture、prototype、merge conflict 与 setup 流程识别 Unity 项目边界。目录名、技能名、命令、代码块、路径和工具标识保持不变，以免破坏安装和运行行为。
+这是 [`mattpocock/skills`](https://github.com/mattpocock/skills) 的简体中文 Unity 适配版本，延续 [`vinvcn/mattpocock-skills-zh-CN`](https://github.com/vinvcn/mattpocock-skills-zh-CN) 的中文本地化工作。除翻译外，本 fork 增加了 Unity implementation/verification workflow，并让 review、diagnosis、architecture、prototype 与 setup 流程识别 Unity 项目边界。目录名、技能名、命令、代码块、路径和工具标识保持不变，以免破坏安装和运行行为。
 
 中文版本不只是为了阅读方便。对中文母语用户来说，中文说明能减少概念转换成本；对以中文为主要交互语言或中文语料优化的模型来说，中文 prompt 和 skill instructions 也更容易贴合中文上下文，减少中英混杂带来的歧义。
 
@@ -18,6 +18,17 @@
 本仓库的最近一次同步翻译由 ZCode（GLM coding agent）执行，并由仓库维护者通过提交记录纳入 `main`。翻译策略是 **skill-guided content localization**：把上游 `mattpocock/skills` 当作英文内容来源，只翻译自然语言说明，保留目录名、skill name、frontmatter key、命令、代码块、路径、URL、package/tool/API identifiers 和行为关键 labels。用户可见的安装路径统一保持为 `hi-fangj/unity-mattpocock-skills-zh-CN`。
 
 ### 同步日志
+
+- 2026-10-07: Synced upstream `mattpocock/skills@f3fc563`，local commit 待本次提交后回填。术语约定 `CONTEXT.md`/`CONTEXT-MAP.md` 全仓更名为 `GLOSSARY.md`/`GLOSSARY-MAP.md`（含仓库自身 glossary 文件改名）；`implement-spec` 与 `retro` 毕业到 engineering，新增 model-invoked 的 `pr`，新增 in-progress skill `chief-of-staff`；移除上游已删除的 `resolving-merge-conflicts`（docs 页面保留并标记 Archived）；`ask-matt` 主流程加入 `implement-spec`/`pr`/`retro`，`diagnosing-bugs` 复盘改指 `/retro`；`code-review` 改为搜索 standards 文件并在前台并行跑子代理，`implement` 改为获取 ticket 引用并调用 Skill tool，`tdd` 要求为每个 seam 注明取舍，`grilling` 问题措辞改为"yes 接受推荐答案"，`teach` 固定 workspace 路径解析并轮换测验答案位置，`handoff`/`claude-handoff` 明确临时目录与引用方式，`wayfinder` 禁用 triage label 与占位引用、research branch 不开 PR，`setup-matt-pocock-skills` 创建 tracker labels 并修正 `gh`/`glab` 命令；`.out-of-scope` 新增 5 条记录；docs 新增 implement-spec/pr/retro 三页并同步主链路图。
+
+本次同步验证（由 ZCode 执行，策略为 skill-guided content localization）：
+
+- `node scripts/check-translation.mjs` 通过；`claude plugin validate . --strict` 通过；`git diff --check` 无 whitespace 问题。
+- 公开索引一致：engineering/productivity/misc 的 skills 同时出现在顶层 README 与 `.claude-plugin/plugin.json`；in-progress/deprecated/personal 未进入公开索引。
+- 对照 `upstream/main` in-scope 清单：无缺失文件；仅上游自身的 `docs/agents/triage-labels.md`（上游 repo 运行 setup 生成物）不导入。
+- Unity 不变量保留：`unity-development` skill、`setup-matt-pocock-skills/unity-development.md`、各 skill 的 `UNITY.md` branches 及条件 pointer 均未改动。
+- 安装路径全部指向 `hi-fangj/unity-mattpocock-skills-zh-CN`；frontmatter `name`、命令、代码块、路径与 identifiers 未被翻译改动。
+- 复核标记：`skills/in-progress/writing-fragments/SKILL.md`、`triage/AGENT-BRIEF.md`、`improve-codebase-architecture/HTML-REPORT.md` 中存在历史遗留的英文 em-dash（示例/模板语境），不影响行为，留待后续清理。
 
 - 2026-08-29: Synced upstream `mattpocock/skills@6654f6b`，local commit `758bf2c`。全仓 prose 移除 em-dash 并把该政策写入 `CLAUDE.md`/`AGENTS.md`；统一跨 skill 调用为 `Call the Skill tool` 措辞，并改为转告人类运行 user-invoked skills（`/setup-matt-pocock-skills` 等），删除 `diagnosing-bugs` Phase 6 对 `/improve-codebase-architecture` 的交接；`grilling` 轮内问题以分隔线隔开；`domain-modeling` 触发条件放宽到术语讨论与 CONTEXT.md/ADR 编辑；`wait-what` 支持经 `CONTEXT-MAP.md` 定位多 context；新增 in-progress skills `implement-spec` 与 `retro`；YAML `description` 引号修复；README、docs 与各 bucket 索引同步刷新。
 
@@ -86,7 +97,6 @@ flowchart TD
     B -.日常维护.-> N["/diagnosing-bugs 调试<br/>reproduce → minimise → fix → regression-test"]
     B -.日常维护.-> O["/improve-codebase-architecture<br/>定期扫描架构腐化"]
     B -.日常维护.-> P["/handoff 交接给其他开发者"]
-    B -.日常维护.-> Q["/resolving-merge-conflicts 解决合并冲突"]
 ```
 
 > Mermaid 图表在 GitHub 上直接渲染；若你的 Markdown 预览器不支持，可把上方代码块内容粘贴到 [mermaid.live](https://mermaid.live) 查看。
@@ -119,7 +129,7 @@ Setup 会自动检测 `ProjectSettings/ProjectVersion.txt` 识别 Unity 项目�
 /grill-with-docs 我要给自走棋添加一个装备合成系统，玩家可以把三件相同品质的装备合成为一件更高品质的随机装备
 ```
 
-Agent 会围绕你的想法追问：合成规则的三消还是三合一？品质跃升是一级还是可跨级？合成失败怎么处理？同时把讨论中明确的术语（如 "装备品质"、"合成配方"）写入 `CONTEXT.md`，把关键决策写入 `docs/adr/`。
+Agent 会围绕你的想法追问：合成规则的三消还是三合一？品质跃升是一级还是可跨级？合成失败怎么处理？同时把讨论中明确的术语（如 "装备品质"、"合成配方"）写入 `GLOSSARY.md`，把关键决策写入 `docs/adr/`。
 
 **第二步：实现**
 
@@ -239,19 +249,7 @@ Agent 会把 plan 拆成 tracer-bullet tickets，每个 ticket 是一个小的�
 
 ---
 
-### 8. 合并冲突：解决 Unity 场景冲突
-
-当多人同时修改同一个 Unity 场景导致 merge conflict 时：
-
-```
-/resolving-merge-conflicts
-```
-
-Agent 会逐个 hunk 处理冲突，追溯到各方的 primary source intent 来解决，而不是简单地 `--abort`。对 `.unity` 场景文件和 `.prefab` 文件（YAML 格式），agent 会小心处理 GameObject / Component 引用完整性。
-
----
-
-### 9. 知识传承：交接给其他开发者
+### 8. 知识传承：交接给其他开发者
 
 当你需要把当前工作交接给同事时：
 
@@ -360,7 +358,7 @@ AI 时代也是一样。你和 agent 之间存在沟通缺口。修复方式是�
 示例
 </summary>
 
-这是我 `course-video-manager` repo 中的一个 [`CONTEXT.md`](https://github.com/mattpocock/course-video-manager/blob/076a5a7a182db0fe1e62971dd7a68bcadf010f1c/CONTEXT.md) 示例。哪一个更容易读？
+这是我 `course-video-manager` repo 中的一个 [glossary](https://github.com/mattpocock/course-video-manager/blob/076a5a7a182db0fe1e62971dd7a68bcadf010f1c/CONTEXT.md) 示例（在该 pinned commit 时它还叫 `CONTEXT.md`，早于 skills 把这个约定改名之前）。哪一个更容易读？
 
 - **BEFORE**: "There's a problem when a lesson inside a section of a course is made 'real' (i.e. given a spot in the file system)"
 - **AFTER**: "There's a problem with the materialization cascade"
@@ -433,7 +431,7 @@ AI 时代也是一样。你和 agent 之间存在沟通缺口。修复方式是�
 **User-invoked**
 
 - **[ask-matt](./skills/engineering/ask-matt/SKILL.md)**：询问当前情境适合哪个 skill 或 flow；它是本仓库 user-invoked skills 的 router。
-- **[grill-with-docs](./skills/engineering/grill-with-docs/SKILL.md)**：追问式访谈，同时构建项目的 domain model、打磨术语，并内联更新 `CONTEXT.md` 与 ADRs。
+- **[grill-with-docs](./skills/engineering/grill-with-docs/SKILL.md)**：追问式访谈，同时构建项目的 domain model、打磨术语，并内联更新 `GLOSSARY.md` 与 ADRs。
 - **[pre-implementation-conflict-check](./skills/engineering/pre-implementation-conflict-check/SKILL.md)**：在代码生成前对照需求确认文档与项目规则、约束、ADR 和术语文档，逐项解决冲突。
 - **[triage](./skills/engineering/triage/SKILL.md)**：通过 triage roles state machine 推进 issues。
 - **[improve-codebase-architecture](./skills/engineering/improve-codebase-architecture/SKILL.md)**：扫描 codebase 中的 deepening opportunities，生成可视化 HTML report，然后围绕你选中的候选项继续 grilling。
@@ -442,6 +440,8 @@ AI 时代也是一样。你和 agent 之间存在沟通缺口。修复方式是�
 - **[to-tickets](./skills/engineering/to-tickets/SKILL.md)**：把 plan、spec 或 conversation 拆成 tracer-bullet tickets，每个 ticket 声明 blocking edges，在 local file 中写成文本，或在真实 tracker 上写成 native blocking links。
 - **[wayfinder](./skills/engineering/wayfinder/SKILL.md)**：把超出单个 agent session 的大块工作规划成 issue tracker 上的 decision tickets 共享 map，逐一解决直到通往 destination 的路清晰。
 - **[implement](./skills/engineering/implement/SKILL.md)**：基于 spec 或 ticket 集合实现一段工作，在预先约定的 seams 处驱动 `/tdd`，并在提交前以 `/code-review` 收尾。
+- **[implement-spec](./skills/engineering/implement-spec/SKILL.md)**：在一条 integration branch 上实现整个 spec。把 tickets 当作 task graph 处理，跨就绪的 frontier 并行运行 implementer subagents，最后以 `/code-review` 收尾。
+- **[retro](./skills/engineering/retro/SKILL.md)**：在一次 session 结束后，对 coding agent 的环境（navigation、automated checks、coding standards、steering files、tooling）提出改进建议，按严重程度排序。
 
 **Model-invoked**
 
@@ -451,10 +451,10 @@ AI 时代也是一样。你和 agent 之间存在沟通缺口。修复方式是�
 - **[diagnosing-bugs](./skills/engineering/diagnosing-bugs/SKILL.md)**：面向棘手 bug 和性能回退的纪律化诊断循环：reproduce -> minimise -> hypothesise -> instrument -> fix -> regression-test。
 - **[research](./skills/engineering/research/SKILL.md)**：对照 high-trust primary sources 调研问题，并把带引用的 findings 保存为 Markdown 文件。
 - **[tdd](./skills/engineering/tdd/SKILL.md)**：使用 red-green-refactor 循环做 test-driven development；一次一个 vertical slice 地构建功能或修复 bug。
-- **[domain-modeling](./skills/engineering/domain-modeling/SKILL.md)**：主动构建和打磨项目 domain model：挑战术语、用 edge-case scenarios 做压力测试，并内联更新 `CONTEXT.md` 与 ADRs。
+- **[domain-modeling](./skills/engineering/domain-modeling/SKILL.md)**：主动构建和打磨项目 domain model：挑战术语、用 edge-case scenarios 做压力测试，并内联更新 `GLOSSARY.md` 与 ADRs。
 - **[codebase-design](./skills/engineering/codebase-design/SKILL.md)**：设计 deep modules 的共享纪律和词汇：小 interface、clean seam、通过 interface 测试。
 - **[code-review](./skills/engineering/code-review/SKILL.md)**：对 fixed point 以来的 diff 做双轴 review：Standards 与 Spec 分开检查，并用并行 sub-agents 运行。
-- **[resolving-merge-conflicts](./skills/engineering/resolving-merge-conflicts/SKILL.md)**：逐个 hunk 处理正在进行的 git merge/rebase conflict，按追溯到各方 primary source 的 intent 解决，然后完成操作，绝不 `--abort`。
+- **[pr](./skills/engineering/pr/SKILL.md)**：PR body 应有的形态：以展示变更的最小可视化作为 summary，附上它确实可用的 before/after 证据，以及 merge-danger 判断（one-way 或 two-way door，外加 blast radius）。
 
 #### Productivity
 
@@ -467,7 +467,7 @@ AI 时代也是一样。你和 agent 之间存在沟通缺口。修复方式是�
 - **[handoff](./skills/productivity/handoff/SKILL.md)**：把当前对话压缩成 handoff document，让另一个 agent 可以继续。
 - **[teach](./skills/productivity/teach/SKILL.md)**：使用当前目录作为 stateful teaching workspace，在多个 sessions 中教用户一个新 skill 或概念。
 - **[to-questionnaire](./skills/productivity/to-questionnaire/SKILL.md)**：把你无法独自回答的 decision 转成一份 Markdown questionnaire，交给唯一能回答的那个人（异步填写，或在会议中一起填写）。
-- **[wait-what](./skills/productivity/wait-what/SKILL.md)**：当一条消息没有落地时触发它。agent 会用你缺失的 context、用平实的语言、用你的 `CONTEXT.md` 词汇重新表述。
+- **[wait-what](./skills/productivity/wait-what/SKILL.md)**：当一条消息没有落地时触发它。agent 会用你缺失的 context、用平实的语言、用你的 `GLOSSARY.md` 词汇重新表述。
 - **[writing-for-agents](./skills/productivity/writing-for-agents/SKILL.md)**：编写供 agents 消费的文档：skills、AGENTS.md/CLAUDE.md，以及任何 agent 通过 pointer 到达的 doc。
 
 **Model-invoked**

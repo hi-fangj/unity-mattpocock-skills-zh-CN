@@ -28,7 +28,7 @@ npx skills update improve-codebase-architecture
 
 整个 skill 围绕一个概念运转：**depth**。一个 deep module 把大量功能藏在一个小而稳定的 interface 后面；一个 shallow module 则会透过一个几乎和底下代码一样宽的 interface 泄漏自己的实现。这份 report 搜寻的是浅薄：纯粹为了可测试性而抽出的 pure function（真正的 bug 藏在它们被调用的方式里，没有 **locality**）、跨 **seam** 泄漏的 module、不打开五个文件就无法理解的概念，并提出能修复它的 deepening。
 
-它用共享的设计词汇（**module**、**interface**、**depth**、**seam**、**adapter**、**leverage**、**locality**）以及你项目自己来自 `CONTEXT.md` 的领域语言来表达，因此一个候选项读起来是"加深 Order intake module"，而绝不是"重构 FooBarHandler"。
+它用共享的设计词汇（**module**、**interface**、**depth**、**seam**、**adapter**、**leverage**、**locality**）以及你项目自己来自 `GLOSSARY.md` 的领域语言来表达，因此一个候选项读起来是"加深 Order intake module"，而绝不是"重构 FooBarHandler"。
 
 ## The report, then the grill
 
@@ -38,4 +38,4 @@ npx skills update improve-codebase-architecture
 
 ## Where it fits
 
-`improve-codebase-architecture` 是**定期维护**：每隔几天运行一次，而不是作为链条中的一步。它的邻居是 [codebase-design](https://aihero.dev/skills-codebase-design)（它拥有每个候选项赖以书写的 depth-and-seam 词汇），[grilling](https://aihero.dev/skills-grilling)（一旦你选中候选项就由它走 decision tree），以及 [domain-modeling](https://aihero.dev/skills-domain-modeling)（在重新设计落定时保持 `CONTEXT.md` 和 ADR 处于最新状态）。当你不确定哪个 skill 或 flow 合适时，[ask-matt](https://aihero.dev/skills-ask-matt) 会为你路由。
+`improve-codebase-architecture` 是**定期维护**：每隔几天运行一次，而不是作为链条中的一步。它的邻居是 [codebase-design](https://aihero.dev/skills-codebase-design)（它拥有每个候选项赖以书写的 depth-and-seam 词汇），[grilling](https://aihero.dev/skills-grilling)（一旦你选中候选项就由它走 decision tree），以及 [domain-modeling](https://aihero.dev/skills-domain-modeling)（在重新设计落定时保持 `GLOSSARY.md` 和 ADR 处于最新状态）。它在 main flow 末端的对应物是 [retro](https://aihero.dev/skills-retro)：这个 skill 改进 agent 所工作的代码，`retro` 在一次构建之后改进它周围的环境（checks、standards、steering files）。当你不确定哪个 skill 或 flow 合适时，[ask-matt](https://aihero.dev/skills-ask-matt) 会为你路由。

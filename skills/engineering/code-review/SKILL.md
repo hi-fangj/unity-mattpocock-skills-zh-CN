@@ -10,7 +10,7 @@ description: "从固定点（commit、branch、tag 或 merge-base）开始，按
 
 两个轴线都作为**并行 sub-agents**运行，避免互相污染 context；然后这个 skill 聚合它们的 findings。
 
-Issue tracker 应该已经提供给你。如果缺少 `docs/agents/issue-tracker.md`，告诉用户运行 `/setup-matt-pocock-skills`。
+Issue tracker 应该已经提供给你。如果没有，告诉用户运行 `/setup-matt-pocock-skills`。
 
 ## Process
 
@@ -26,14 +26,14 @@ Issue tracker 应该已经提供给你。如果缺少 `docs/agents/issue-tracker
 
 按以下顺序寻找来源 spec：
 
-1. Commit messages 中的 issue references（`#123`、`Closes #45`、GitLab `!67` 等）：按 `docs/agents/issue-tracker.md` 中的 workflow 获取。
+1. Commit messages 中的 issue references（`#123`、`Closes #45`、GitLab `!67` 等）：按 tracker 文档中的 workflow 获取。
 2. 用户作为 argument 传入的 path。
 3. `docs/`、`specs/` 或 `.scratch/` 下与 branch name 或 feature 匹配的 spec 文件。
 4. 如果什么都找不到，询问用户 spec 在哪里。如果用户说没有 spec，**Spec** sub-agent 跳过并报告 “no spec available”。
 
 ### 3. Identify the standards sources
 
-先读取 `AGENTS.md` 或 `CLAUDE.md`，再读取 repo 中其他记录代码应该如何写的内容，例如 `CODING_STANDARDS.md`、`CONTRIBUTING.md`、相关 ADRs 或 repository workflow documents。
+搜索 repo 中每一份记录代码应该如何写的文档（先看 `AGENTS.md` 与 `CLAUDE.md`）。当 `CODING_STANDARDS.md` 或 `CONTRIBUTING.md` 存在时，它们必须在清单上。
 
 当 `ProjectSettings/ProjectVersion.txt` 表明这是 Unity repository 时，读取 [UNITY.md](UNITY.md) 与任何 `docs/agents/unity-development.md`，并把适用规则加入 Standards sub-agent prompt。
 
@@ -58,6 +58,8 @@ Issue tracker 应该已经提供给你。如果缺少 `docs/agents/issue-tracker
 - **Refused Bequest**：subclass 或 implementer 忽略或 override 了继承来的大部分内容。-> 去掉 inheritance，使用 composition。
 
 ### 4. Spawn both sub-agents in parallel
+
+在同一个消息中同时发出两个 sub-agent 调用，在前台运行，并聚合它们返回的报告。
 
 **Standards sub-agent prompt** 应包含：
 

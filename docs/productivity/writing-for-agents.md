@@ -79,4 +79,4 @@ npx skills update writing-for-agents
 
 ## Where it fits
 
-这是随时伸手可用的 standalone reference。它在 chain 里没有邻居，因为它坐在整套之下，而不是任何单个 skill 旁边：这里的每个 skill 都是对照它写的，而其他 skills 留下的文档（`CONTEXT.md` 和它的 ADRs、一份 spec、一份 ticket）一旦 agent 要读它们，就正是它所管束的文本。当你不确定哪个 skill 或 flow 适合任务时，[ask-matt](https://aihero.dev/skills-ask-matt) 会带你过完整套。
+这是随时伸手可用的 standalone reference。它在 chain 里没有邻居，因为它坐在整套之下，而不是任何单个 skill 旁边：这里的每个 skill 都是对照它写的，而其他 skills 留下的文档（`GLOSSARY.md` 和它的 ADRs、一份 spec、一份 ticket）一旦 agent 要读它们，就正是它所管束的文本。当你不确定哪个 skill 或 flow 适合任务时，[ask-matt](https://aihero.dev/skills-ask-matt) 会带你过完整套。

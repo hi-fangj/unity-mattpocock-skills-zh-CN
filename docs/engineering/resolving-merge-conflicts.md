@@ -1,3 +1,5 @@
+> **Archived（已归档）。** 这个 skill 已在 v1.3.0 从 plugin 中移除，不再维护。没有替代者：agent 无需专门的 skill 就能处理 merge 或 rebase conflict。本页面仅作参考保留。
+
 Quickstart:
 
 ```bash

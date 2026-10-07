@@ -30,10 +30,10 @@ npx skills update implement
 
 ## Where it fits
 
-`implement` 是 main chain 末段、紧接在 review 之前的 build step：
+`implement` 是 main chain 的 build step：
 
 ```txt
-grill-with-docs → to-spec → to-tickets → implement → code-review
+grill-with-docs → to-spec → to-tickets → implement → code-review → retro
 ```
 
-在工作已经写好 spec 并排好序之后使用它，而不是之前。它的关键邻居是 [to-tickets](https://aihero.dev/skills-to-tickets)（产出它所处理的 issue，每个 issue 都声明自己的 blocking edges），以及 [tdd](https://aihero.dev/skills-tdd)（它在内部驱动 tdd，在每个 seam 上先写好测试，然后再运行自己的 [code-review](https://aihero.dev/skills-code-review) pass 并提交）。当你不确定哪个 skill 或 flow 合适时，[ask-matt](https://aihero.dev/skills-ask-matt) 会为你路由。
+在工作已经写好 spec 并排好序之后使用它，而不是之前。它的关键邻居是 [to-tickets](https://aihero.dev/skills-to-tickets)（产出它所处理的 issue，每个 issue 都声明自己的 blocking edges），以及 [tdd](https://aihero.dev/skills-tdd)（它在内部驱动 tdd，在每个 seam 上先写好测试，然后再运行自己的 [code-review](https://aihero.dev/skills-code-review) pass 并提交）。想一次跑完整个 spec 时，[implement-spec](https://aihero.dev/skills-implement-spec) 把 tickets 作为 task graph 分发给 worktree 隔离的 subagents。当你不确定哪个 skill 或 flow 合适时，[ask-matt](https://aihero.dev/skills-ask-matt) 会为你路由。

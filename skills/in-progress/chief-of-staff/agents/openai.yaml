@@ -1,0 +1,5 @@
+interface:
+  display_name: "幕僚长"
+  short_description: "通过协调 subagents，在单个 session 中追求一个长期目标"
+policy:
+  allow_implicit_invocation: false

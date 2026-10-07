@@ -14,7 +14,7 @@ npx skills update setup-matt-pocock-skills
 
 `setup-matt-pocock-skills` 教会一个 repo：engineering skills 在其中应该如何运作（issues 放在哪里、triage labels 叫什么名字、domain docs 放在哪里，以及 Unity repository 应如何编译和验证），并把这些答案记录为其他 skills 会读取的 **config**。
 
-它写的是 config，而不是把行为硬编码进去。这个 skill 是一次性 bootstrap，内容从真实 repo 中发现（`git remote`、已有 labels、`CONTEXT.md`、Unity version、assemblies、generated ownership 与 build commands），并与你确认，而不是靠猜。它是 prompt 驱动的（探索、呈现它发现的内容、确认、然后写入），而不是一个确定性的 scaffold。
+它写的是 config，而不是把行为硬编码进去。这个 skill 是一次性 bootstrap，内容从真实 repo 中发现（`git remote`、已有 labels、`GLOSSARY.md`、Unity version、assemblies、generated ownership 与 build commands），并与你确认，而不是靠猜。它是 prompt 驱动的（探索、呈现它发现的内容、确认、然后写入），而不是一个确定性的 scaffold。
 
 ## When to reach for it
 
@@ -28,7 +28,7 @@ npx skills update setup-matt-pocock-skills
 
 - **Issue tracker**：工作在哪里被跟踪，这样 `triage`/`to-spec`/`to-tickets` 才知道该调用 `gh`、`glab`，还是在 `.scratch/` 下写 markdown，抑或遵循你描述的某个 workflow。GitHub、GitLab、local markdown，或其他。（它会提议与你 `git remote` 匹配的那一个。）
 - **Triage labels**：仅在安装了 `triage` skill 时才询问，而且只问一句：保留默认 labels（`needs-triage`、`needs-info`、`ready-for-agent`、`ready-for-human`、`wontfix`）吗？只有当你的 tracker 已经在使用其他名字时才说 no，这样 `triage` 就会套用真实存在的 labels，而不是创建重复项。
-- **Domain docs**：假定是 single-context（根目录一个 `CONTEXT.md` + `docs/adr/`），这适用于几乎所有 repo；只有当它发现 monorepo 信号时，才会提出 multi-context map。
+- **Domain docs**：假定是 single-context（根目录一个 `GLOSSARY.md` + `docs/adr/`），这适用于几乎所有 repo；只有当它发现 monorepo 信号时，才会提出 multi-context map。
 - **Unity development**：当 `ProjectSettings/ProjectVersion.txt` 存在时自动运行，记录 assembly/layer boundaries、generated-code ownership、最小 compiler checks、Unity-facing scenarios 与 high-risk paths。
 
 输出是 `docs/agents/` 下的一组文件（`issue-tracker.md`、`domain.md`，安装了 `triage` 时的 `triage-labels.md`，以及 Unity repository 的 `unity-development.md`）：外加一个指向它们的 `## Agent skills` 块，写入 repo 已经在使用的 `CLAUDE.md` / `AGENTS.md` 其中之一。这些文件就是整个工具包其余部分所立足的共享基底。

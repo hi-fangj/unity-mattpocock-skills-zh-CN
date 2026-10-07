@@ -7,7 +7,7 @@ description: 面向棘手缺陷和性能回退的诊断循环。适用于用户�
 
 面向棘手 bugs 的纪律。只有在明确说明理由时才跳过阶段。
 
-探索 codebase 时，先读取 `CONTEXT.md`（如果存在），建立相关 modules 的清晰 mental model，并检查你将触碰区域的 ADRs。
+探索 codebase 时，先读取 `GLOSSARY.md`（如果存在），建立相关 modules 的清晰 mental model，并检查你将触碰区域的 ADRs。
 
 当 `ProjectSettings/ProjectVersion.txt` 表明这是 Unity project 时，读取 [UNITY.md](UNITY.md)。其中 feedback-loop 与 regression-evidence rules 覆盖本文档的 command-line assumptions。
 
@@ -124,7 +124,7 @@ Correct seam 是 test 能以 call site 中真实发生的方式触发 **real bug
 如果存在 correct test seam：
 
 1. 把 minimised repro 变成该 seam 上的 failing test。
-2. 看它 fail。
+2. 看它 fail。如果你通过修改代码或 fixture 强行制造了 red，先对 pristine copy 运行 `diff`，证明这个 mutation 确实生效，然后再相信它。
 3. 应用 fix。
 4. 看它 pass。
 5. 重新针对原始（未 minimised）场景运行 Phase 1 feedback loop。

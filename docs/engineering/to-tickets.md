@@ -50,7 +50,7 @@ Blocking edges 才是重点所在。它们让同一组 tickets 有两种读法�
 `to-tickets` 是 main build chain 中的一个步骤：
 
 ```txt
-grill-with-docs → to-spec → to-tickets → implement → code-review
+grill-with-docs → to-spec → to-tickets → implement → code-review → retro
 ```
 
-它位于 [to-spec](https://aihero.dev/skills-to-spec)（交给它一份已定稿、带 user stories 可供切片的 spec）和 [implement](https://aihero.dev/skills-implement)（构建每个 ticket，在内部驱动 [tdd](https://aihero.dev/skills-tdd) 以 test-first 的方式写 tests，然后进行 [code-review](https://aihero.dev/skills-code-review) 环节）之间。按 frontier 推进，每个 fresh context 一个 ticket，在它们之间清理。当你不确定哪个 skill 或 flow 合适时，[ask-matt](https://aihero.dev/skills-ask-matt) 会为你引路。
+它位于 [to-spec](https://aihero.dev/skills-to-spec)（交给它一份已定稿、带 user stories 可供切片的 spec）和 [implement](https://aihero.dev/skills-implement)（构建每个 ticket，在内部驱动 [tdd](https://aihero.dev/skills-tdd) 以 test-first 的方式写 tests，然后进行 [code-review](https://aihero.dev/skills-code-review) 环节）之间。按 frontier 推进，每个 fresh context 一个 ticket，在它们之间清理。[implement-spec](https://aihero.dev/skills-implement-spec) 是下游的另一条路：它把同一组 blocking edges 读作 task graph，在一条 integration branch 上并行构建所有就绪 tickets。当你不确定哪个 skill 或 flow 合适时，[ask-matt](https://aihero.dev/skills-ask-matt) 会为你引路。

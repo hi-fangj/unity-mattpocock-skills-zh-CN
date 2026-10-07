@@ -24,7 +24,7 @@ npx skills update ask-matt
 
 ## Flows, not just skills
 
-`ask-matt` 给你用来思考的核心概念是 **flow**：一条穿*过*多个 skills 的路径，而不是单个 skill。大多数工作沿着一条 **main flow** 进行（idea → ship：grill → spec → tickets → implement → review），有两条 **on-ramp** 汇入其中（一条处理传入 bugs 和 requests 的 triage lane；一条生成 ideas 的 codebase-health lane），其余一切都是可以单独调用的 **standalone**。提出一个问题，你就会被放到正确的 flow 上正确的步骤，而不只是被递上一个工具。
+`ask-matt` 给你用来思考的核心概念是 **flow**：一条穿*过*多个 skills 的路径，而不是单个 skill。大多数工作沿着一条 **main flow** 进行（idea → ship：grill → spec → tickets → implement，可逐 ticket 推进，或用 [implement-spec](https://aihero.dev/skills-implement-spec) 把整个 task graph 并行跑完 → review → [retro](https://aihero.dev/skills-retro)，它把这次构建的教训回馈到 agent 的环境中），有两条 **on-ramp** 汇入其中（一条处理传入 bugs 和 requests 的 triage lane；一条生成 ideas 的 codebase-health lane），其余一切都是可以单独调用的 **standalone**。提出一个问题，你就会被放到正确的 flow 上正确的步骤，而不只是被递上一个工具。
 
 ## Where it fits
 

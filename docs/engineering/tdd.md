@@ -41,7 +41,7 @@ Refactoring 只在 suite 为 green 时进行；绝不在 red 时进行。
 `tdd` 是 main build chain 用来写代码的 red-green loop：
 
 ```txt
-grill-with-docs → to-spec → to-tickets → implement → code-review
+grill-with-docs → to-spec → to-tickets → implement → code-review → retro
 ```
 
 [implement](https://aihero.dev/skills-implement) 是这条 chain 的 build 步骤，它在内部驱动 `tdd`，以 test-first 的方式构建每个 ticket，然后交接给 [code-review](https://aihero.dev/skills-code-review)，所以 `tdd` 是该步骤内部的引擎，而不是一个独立的步骤。只要有具体 behavior 要构建、又没有完整 spec，你也可以直接调用它。它的另一个邻居是 [codebase-design](https://aihero.dev/skills-codebase-design)，`tdd` 依靠它来找到值得为之写 test 的 deep-module seams。当你不确定哪个 skill 或 flow 合适时，[ask-matt](https://aihero.dev/skills-ask-matt) 会为你引路。
