@@ -19,7 +19,7 @@
 
 ### 同步日志
 
-- 2026-10-07: Synced upstream `mattpocock/skills@f3fc563`，local commit 待本次提交后回填。术语约定 `CONTEXT.md`/`CONTEXT-MAP.md` 全仓更名为 `GLOSSARY.md`/`GLOSSARY-MAP.md`（含仓库自身 glossary 文件改名）；`implement-spec` 与 `retro` 毕业到 engineering，新增 model-invoked 的 `pr`，新增 in-progress skill `chief-of-staff`；移除上游已删除的 `resolving-merge-conflicts`（docs 页面保留并标记 Archived）；`ask-matt` 主流程加入 `implement-spec`/`pr`/`retro`，`diagnosing-bugs` 复盘改指 `/retro`；`code-review` 改为搜索 standards 文件并在前台并行跑子代理，`implement` 改为获取 ticket 引用并调用 Skill tool，`tdd` 要求为每个 seam 注明取舍，`grilling` 问题措辞改为"yes 接受推荐答案"，`teach` 固定 workspace 路径解析并轮换测验答案位置，`handoff`/`claude-handoff` 明确临时目录与引用方式，`wayfinder` 禁用 triage label 与占位引用、research branch 不开 PR，`setup-matt-pocock-skills` 创建 tracker labels 并修正 `gh`/`glab` 命令；`.out-of-scope` 新增 5 条记录；docs 新增 implement-spec/pr/retro 三页并同步主链路图。
+- 2026-10-07: Synced upstream `mattpocock/skills@f3fc563`，local commit `1abf350`。术语约定 `CONTEXT.md`/`CONTEXT-MAP.md` 全仓更名为 `GLOSSARY.md`/`GLOSSARY-MAP.md`（含仓库自身 glossary 文件改名）；`implement-spec` 与 `retro` 毕业到 engineering，新增 model-invoked 的 `pr`，新增 in-progress skill `chief-of-staff`；移除上游已删除的 `resolving-merge-conflicts`（docs 页面保留并标记 Archived）；`ask-matt` 主流程加入 `implement-spec`/`pr`/`retro`，`diagnosing-bugs` 复盘改指 `/retro`；`code-review` 改为搜索 standards 文件并在前台并行跑子代理，`implement` 改为获取 ticket 引用并调用 Skill tool，`tdd` 要求为每个 seam 注明取舍，`grilling` 问题措辞改为"yes 接受推荐答案"，`teach` 固定 workspace 路径解析并轮换测验答案位置，`handoff`/`claude-handoff` 明确临时目录与引用方式，`wayfinder` 禁用 triage label 与占位引用、research branch 不开 PR，`setup-matt-pocock-skills` 创建 tracker labels 并修正 `gh`/`glab` 命令；`.out-of-scope` 新增 5 条记录；docs 新增 implement-spec/pr/retro 三页并同步主链路图。
 
 本次同步验证（由 ZCode 执行，策略为 skill-guided content localization）：
 
